@@ -1,0 +1,32 @@
+{
+  "name": "@gs/proxy",
+  "version": "0.0.0",
+  "description": "Manage local proxy",
+  "keywords": [
+    "proxy"
+  ],
+  "author": "Glory Wong Zhaohui <glorywong1001@gmail.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/proxy.js",
+  "bin": {
+    "proxy": "bin/proxy"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "bin",
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "http://npm.gs.me/"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "yargs": "^17.0.1"
+  }
+}
