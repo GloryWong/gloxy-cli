@@ -1,26 +1,34 @@
 'use strict';
 
-const factory = require('yargs/yargs');
+const { Command } = require('commander');
 const proxy = require('./proxy');
+const log = require('@glorywong/log');
 
-module.exports = cli;
+const program = new Command();
+const VERSION = '0.0.1';
+program
+  .version(VERSION, '-v, --version', 'output the current version')
+  .option('-t, --toggle <app>', 'toggle proxy of an app on or off')
+  .option('-g, --get <app>', 'get proxy of an app')
+  // .option('-s, --set <app> <proxy service>', 'set proxy of an app with')
+  .action(({ toggle, get, set }) => {
+    try {
+      if (toggle) {
+        proxy.toggle(toggle);
+        return;
+      }
 
-function cli(cwd) {
-  const parser = factory(null, cwd);
+      if (get) {
+        proxy.get(get);
+        return;
+      }
 
-  parser.alias('h', 'help');
-  parser.alias('v', 'version');
-
-  parser.usage(
-    "$0",
-    "TODO: description",
-    yargs => {
-      yargs.options({
-        // TODO: options
-      });
-    },
-    argv => proxy(argv)
-  );
-
-  return parser;
-}
+      if (set) {
+        proxy.set(set);
+        return;
+      }
+    } catch (error) {
+      log.error(error);
+    }
+  })
+  .parse();

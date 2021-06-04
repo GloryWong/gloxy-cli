@@ -1,6 +1,6 @@
 {
   "name": "@gs/proxy",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Manage local proxy",
   "keywords": [
     "proxy"
@@ -10,7 +10,7 @@
   "license": "ISC",
   "main": "lib/proxy.js",
   "bin": {
-    "proxy": "bin/proxy"
+    "gs-proxy": "bin/proxy"
   },
   "directories": {
     "lib": "lib",
@@ -27,6 +27,10 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
+    "@glorywong/log": "^1.0.4",
+    "commander": "^7.2.0",
+    "execa": "^5.1.0",
+    "ora": "^5.4.0",
     "yargs": "^17.0.1"
   }
 }
