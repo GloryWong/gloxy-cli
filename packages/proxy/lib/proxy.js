@@ -21,38 +21,30 @@ const CMD = {
         get: ['git', ['config', '--global', '--get', 'http.proxy']],
         set: ['git', ['config', '--global', '--add', 'http.proxy', PROXY_SERVICE.default]],
         remove: ['git', ['config', '--global', '--unset', 'http.proxy']],
+    },
+    npm: {
+        get: ['npm', ['config', 'get', 'proxy']],
+        set: ['npm', ['config', 'set', 'proxy', PROXY_SERVICE.default]],
+        remove: ['npm', ['config', 'delete', 'proxy']]
     }
 }
 
 function _get(app) {
     try {
-        if (!_exist(app)) {
-            return '';
-        }
-
         const { stdout } = execa.sync(...CMD[app].get);
-        return stdout;
-    } catch (error) {
-        throw (app, '_get proxy failed:', error);
-    }
-}
-
-function _exist(app) {
-    try {
-        execa.sync(...CMD[app].get);
-        return true;
+        return _isTruth(stdout) ? stdout : '';
     } catch (error) {
         if (error.exitCode === 1) {
-            return false;
+            return '';
         } else {
-            throw (app, '_exist checkingfailed:', error);
+            throw (app, '_get proxy failed:', error);
         }
     }
 }
 
 function _set(app) {
     try {
-        if (_exist(app)) {
+        if (_get(app)) {
             _remove(app);
         }
 
@@ -64,11 +56,19 @@ function _set(app) {
 
 function _remove(app) {
     try {
-        if (_exist(app)) {
+        if (_get(app)) {
             execa.sync(...CMD[app].remove);
         }
     } catch (error) {
         throw (app, '_remove proxy failed:', error);
+    }
+}
+
+function _isTruth(val) {
+    try {
+        return (!!val && val.toLowerCase() !== 'null' && val.toLowerCase() !== 'undefined')
+    } catch (error) {
+        throw (app, '_isTruth check failed:', error);
     }
 }
 
@@ -89,11 +89,11 @@ function remove(app) {
 }
 
 function toggle(app) {
-    if (_exist(app)) {
+    if (_get(app)) {
         _remove(app);
         log.success(`${app} proxy off`);
     } else {
-        log.success(`${app} proxy on`);
         _set(app);
+        log.success(`${app} proxy on`);
     }
 }
