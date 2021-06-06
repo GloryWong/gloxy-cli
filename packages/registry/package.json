@@ -1,16 +1,16 @@
 {
-  "name": "@gs/proxy",
+  "name": "@gs/registry",
   "version": "0.0.1",
-  "description": "Manage local proxy",
+  "description": "Select registry for an app",
   "keywords": [
-    "proxy"
+    "registry"
   ],
   "author": "Glory Wong Zhaohui <glorywong1001@gmail.com>",
-  "homepage": "",
+  "homepage": "https://github.com/GloryWong/gs-cli#readme",
   "license": "ISC",
-  "main": "lib/proxy.js",
+  "main": "lib/registry.js",
   "bin": {
-    "gs-proxy": "bin/proxy"
+    "gs-registry": "bin/registry"
   },
   "directories": {
     "lib": "lib",
@@ -23,14 +23,20 @@
   "publishConfig": {
     "registry": "http://npm.gs.me/"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GloryWong/gs-cli.git"
+  },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
     "@glorywong/log": "^1.0.4",
     "commander": "^7.2.0",
-    "configstore": "^6.0.0",
-    "execa": "^5.1.0",
+    "execa": "^5.1.1",
     "ora": "^5.4.0"
+  },
+  "bugs": {
+    "url": "https://github.com/GloryWong/gs-cli/issues"
   }
 }

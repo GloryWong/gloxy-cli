@@ -1,29 +1,24 @@
 'use strict';
 
 const { Command } = require('commander');
-const proxy = require('./proxy');
+const registry = require('./registry');
 const log = require('@glorywong/log');
 
 const program = new Command();
 const VERSION = '0.0.1';
 program
   .version(VERSION, '-v, --version', 'output the current version')
-  .option('-t, --toggle <app>', 'toggle proxy of an app on or off')
-  .option('-g, --get <app>', 'get proxy of an app')
+  .option('-t, --toggle <app>', 'toggle registry of an app')
+  .option('-g, --get <app>', 'get registry of an app')
   .action(({ toggle, get, set }) => {
     try {
       if (toggle) {
-        proxy.toggle(toggle);
+        registry.toggle(toggle);
         return;
       }
 
       if (get) {
-        proxy.get(get);
-        return;
-      }
-
-      if (set) {
-        proxy.set(set);
+        registry.get(get);
         return;
       }
     } catch (error) {

@@ -2,6 +2,8 @@
 
 const execa = require('execa');
 const log = require('@glorywong/log');
+// const ConfigStore = require('configstore');
+// const fs = require('fs');
 
 module.exports = {
     toggle,
@@ -10,7 +12,7 @@ module.exports = {
     remove
 };
 
-//
+////////////////////////////////////////////////////////////////
 
 const PROXY_SERVICE = {
     default: 'http://localhost:51837'
@@ -28,6 +30,10 @@ const CMD = {
         remove: ['npm', ['config', 'delete', 'proxy']]
     }
 }
+
+// const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
+// const configStore = new ConfigStore(packageJson.name);
+// configStore.get('server');
 
 function _get(app) {
     try {
