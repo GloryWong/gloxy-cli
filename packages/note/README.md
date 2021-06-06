@@ -1,13 +1,13 @@
-# `note`
+# `@gs/note`
 
 > TODO: description
 
 ## Usage
 
 ```
-npm -g i note
+npm -g i @gs/note
 
-note --help
+gs-note --help
 
 // TODO: DEMONSTRATE API
 ```
