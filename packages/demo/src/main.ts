@@ -6,12 +6,12 @@ import { Command } from 'commander';
 // TODO: create demo
 // TODO: remove demo to trash
 
-import { listDemos, selectDemo } from './demo';
+import { listDemos, selectDemo } from './demos';
 
 const program = new Command();
 program
   .version('1.0.0')
-  .action(function () {
+  .action(function() {
     listDemos();
     selectDemo();
   })

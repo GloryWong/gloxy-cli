@@ -29,11 +29,15 @@
     "url": "git+https://github.com/GloryWong/gs-cli.git"
   },
   "scripts": {
+    "watch": "tsc --watch",
     "build": "tsc",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
-    "commander": "^7.2.0"
+    "@glorywong/log": "^1.0.4",
+    "commander": "^7.2.0",
+    "enquirer": "^2.3.6",
+    "ora": "^5.4.0"
   },
   "bugs": {
     "url": "https://github.com/GloryWong/gs-cli/issues"
