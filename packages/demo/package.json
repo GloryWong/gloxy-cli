@@ -1,0 +1,44 @@
+{
+  "name": "@gs/demo",
+  "version": "0.0.1",
+  "description": "Instant and quick demo",
+  "keywords": [
+    "demo",
+    "playground"
+  ],
+  "author": "Glory Wong Zhaohui <glorywong1001@gmail.com>",
+  "homepage": "https://github.com/GloryWong/gs-cli#readme",
+  "license": "ISC",
+  "main": "lib/demo.js",
+  "bin": {
+    "gs-demo": "bin/demo"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "bin",
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GloryWong/gs-cli.git"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "commander": "^7.2.0"
+  },
+  "bugs": {
+    "url": "https://github.com/GloryWong/gs-cli/issues"
+  },
+  "devDependencies": {
+    "@tsconfig/node12": "^1.0.7"
+  }
+}
