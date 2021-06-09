@@ -13,7 +13,7 @@ module.exports = {
 const REGISTRIES = {
     npm: {
         official: 'https://registry.npmjs.org/',
-        gs: 'https://npm.gs.me/'
+        gs: 'http://npm.gs.me/'
     }
 }
 
