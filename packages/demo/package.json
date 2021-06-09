@@ -9,7 +9,7 @@
   "author": "Glory Wong Zhaohui <glorywong1001@gmail.com>",
   "homepage": "https://github.com/GloryWong/gs-cli#readme",
   "license": "ISC",
-  "main": "lib/demo.js",
+  "main": "lib/index.js",
   "bin": {
     "gs-demo": "bin/demo"
   },
@@ -29,8 +29,10 @@
     "url": "git+https://github.com/GloryWong/gs-cli.git"
   },
   "scripts": {
-    "watch": "tsc --watch",
-    "build": "tsc",
+    "dev": "npm run copy && tsc --watch",
+    "build": "npm run clean && tsc && npm run copy",
+    "copy": "recursive-copy --dot true --overwrite true src/template ./lib/template",
+    "clean": "rimraf lib/",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
