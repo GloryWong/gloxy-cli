@@ -38,8 +38,12 @@
   "dependencies": {
     "@glorywong/log": "^1.0.4",
     "commander": "^7.2.0",
+    "conf": "^10.0.1",
     "enquirer": "^2.3.6",
-    "ora": "^5.4.0"
+    "lodash": "^4.17.21",
+    "luxon": "^1.27.0",
+    "ora": "^5.4.0",
+    "recursive-copy": "^2.0.11"
   },
   "bugs": {
     "url": "https://github.com/GloryWong/gs-cli/issues"
