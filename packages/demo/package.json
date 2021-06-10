@@ -33,7 +33,7 @@
     "build": "npm run clean && tsc && npm run copy",
     "copy": "recursive-copy --dot true --overwrite true src/template ./lib/template",
     "clean": "rimraf lib/",
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "exit 0"
   },
   "dependencies": {
     "@glorywong/log": "^1.0.4",
