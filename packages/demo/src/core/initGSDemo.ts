@@ -1,27 +1,28 @@
-import * as types from './lib/types';
+import * as types from '../lib/types';
 import copy from 'recursive-copy';
 import log from '@glorywong/log';
-import conf from './lib/conf';
+import conf from '../lib/conf';
 import path from 'path';
+
+export {
+  init,
+  hasInited
+};
 
 function hasInited(): boolean {
   return conf.has('root');
 }
 
-async function initGSDemo(gsDemoPath: string): Promise<boolean> {
+async function init(gsDemoPath: string = 'gsdemo'): Promise<boolean> {
   try {
     if (hasInited()) {
       log.info('GS Demo has existed.');
       return false;
     }
 
-    if (!gsDemoPath) {
-      gsDemoPath = 'gsdemo';
-    }
-
     const root = path.resolve(gsDemoPath);
     // Init gsdemo dir
-    await copy(path.join(__dirname, 'template'), root, {
+    await copy(path.resolve(__dirname, '..', 'template'), root, {
       dot: true,
       debug: true
     });
@@ -37,8 +38,3 @@ async function initGSDemo(gsDemoPath: string): Promise<boolean> {
     return false;
   }
 }
-
-export {
-  initGSDemo,
-  hasInited
-};

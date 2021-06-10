@@ -1,20 +1,18 @@
-type tag = {
+type DemoTag = {
   id: string,
   name: string
 }
 
 type Demo = {
-  id: string,
-  code?: number,
   name: string,
-  path: string,
-  tags?: Array<tag>
+  code?: number,
+  tags?: Array<DemoTag>
 }
 
 type DemoList = Array<Demo>;
 
 export {
-  tag,
+  DemoTag,
   Demo,
   DemoList
 };

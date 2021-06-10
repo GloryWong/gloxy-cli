@@ -1,12 +1,12 @@
 import path from 'path';
-import configStore from './configStore';
+import conf from './conf';
 
-const ROOT = configStore.get('root');
-const CACHE_DIR = path.join(ROOT, '.cache');
+const ROOT = String(conf.get('root'));
+const STORAGE_DIR = path.join(ROOT, '.storage');
 const LOG_DIR = path.join(ROOT, '.log');
 
 export {
   ROOT,
-  CACHE_DIR,
+  STORAGE_DIR,
   LOG_DIR
 };

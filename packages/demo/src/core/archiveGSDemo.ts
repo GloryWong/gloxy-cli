@@ -1,11 +1,11 @@
-import conf from './lib/conf';
+import conf from '../lib/conf';
 import copy from 'recursive-copy';
 import fs from 'fs';
 import path from 'path';
 import { DateTime } from 'luxon';
 import log from '@glorywong/log';
 
-function archiveGSDemo(): boolean {
+function archive(): boolean {
   try {
     const root = String(conf.get('root'));
     const { name } = path.parse(root);
@@ -29,5 +29,5 @@ function archiveGSDemo(): boolean {
 }
 
 export {
-  archiveGSDemo
+  archive
 };

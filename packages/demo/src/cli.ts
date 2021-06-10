@@ -1,6 +1,5 @@
 import { Command } from 'commander';
 
-// TODO: list demos
 // TODO: choose demo from list
 // TODO: direct choose demo
 // TODO: create demo
@@ -9,59 +8,56 @@ import { Command } from 'commander';
 import _ from 'lodash';
 import log from '@glorywong/log';
 import { prompt } from 'enquirer';
-import * as types from './types';
-import { hasInited, initGSDemo } from './init';
-import { archiveGSDemo } from './archive';
+import * as types from './lib/types';
+import { hasInited } from './core/initGSDemo';
+import path from 'path';
+import { getDemoList } from './core/demoList';
+import { createDemo } from './core/demo';
 
 const program = new Command();
 program
   .version('1.0.0')
-  .option('--init [path]', 'init GS Demo')
+  .command('init [path]', 'Init GS Demo', { executableFile: path.join(__dirname, 'cli/init.js') })
+  .command('archive', 'Archive GS Demo', { executableFile: path.join(__dirname, 'cli/archive.js')})
   .option('-l, --list', 'list all demos')
   .option('-c, --create <name>', 'create a demo')
-  .option('--archive', 'archive GS Demo')
   .action(function (options) {
-    const { init: gsDemoPath, list, create: demoName, archive } = options;
+    try {
+      if (!hasInited()) {
+        log.warning('Please init GS Demo first.');
+        return;
+      }
 
-    if (gsDemoPath) {
-      initGSDemo(typeof gsDemoPath === 'string' ? gsDemoPath : '');
-      return;
-    }
+      if (_.isEmpty(options)) {
+        listDemos();
+      }
 
-    if (!hasInited()) {
-      log.warning('Please init GS Demo first.');
-      return;
-    }
+      const { list, create: demoName } = options;
 
-    if (archive) {
-      archiveGSDemo();
-      return;
-    }
+      if (list) {
+        listDemos();
+        return;
+      }
 
-    if (_.isEmpty(options)) {
-      //
-    }
-
-    if (list) {
-      // listDemos();
-    }
-
-    if (demoName) {
-      // createDemo(demoName);
+      if (demoName) {
+        createDemo(demoName);
+      }
+    } catch (error) {
+      log.error('ERROR:', error);
     }
   })
   .parse();
 
-// function listDemos(): void {
-//   try {
-//     const list: List = getDemoList();
-//     list.forEach(({ code, name }) => {
-//       log.info('[', 'success:', code, 'info:', ']', name);
-//     });
-//   } catch (error) {
-//     log.error('list demos failed:', error);
-//   }
-// }
+function listDemos(): void {
+  try {
+    const list: types.DemoList = getDemoList();
+    list.forEach(({ code, name }) => {
+      log.info('[', 'success:', code, 'info:', ']', name);
+    });
+  } catch (error) {
+    log.error('list demos failed:', error);
+  }
+}
 
 // async function selectDemo(): Promise<void> {
 //   try {
