@@ -21,7 +21,7 @@ async function initGSDemo(gsDemoPath: string): Promise<boolean> {
 
     const root = path.resolve(gsDemoPath);
     // Init gsdemo dir
-    await copy('lib/template', root, {
+    await copy(path.join(__dirname, 'template'), root, {
       dot: true,
       debug: true
     });
