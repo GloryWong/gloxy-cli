@@ -1,6 +1,6 @@
 {
   "name": "@gs/note",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Instant note on notion.so",
   "keywords": [
     "note"
