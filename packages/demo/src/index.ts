@@ -1,7 +1,7 @@
-import * as gsDemoInit from './gsDemoInit';
-import * as demoList from './demo';
+import * as gsDemoInit from './core/initGSDemo';
+import * as demoIndex from './core/demoIndex';
 
 export {
   gsDemoInit,
-  demoList
+  demoIndex
 };

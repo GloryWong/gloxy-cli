@@ -4,15 +4,15 @@ type DemoTag = {
 }
 
 type Demo = {
+  id: string,
   name: string,
-  code?: number,
   tags?: Array<DemoTag>
 }
 
-type DemoList = Array<Demo>;
+type DemoIndex = Array<{ name: string, code: number, tags?: DemoTag}>;
 
 export {
   DemoTag,
   Demo,
-  DemoList
+  DemoIndex
 };

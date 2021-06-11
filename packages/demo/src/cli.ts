@@ -9,27 +9,28 @@ import _ from 'lodash';
 import log from '@glorywong/log';
 import { prompt } from 'enquirer';
 import * as types from './lib/types';
-import { hasInited } from './core/initGSDemo';
+import { readPackageJson } from './lib/utility';
+import { initCLIOrWarning } from './core/initGSDemo';
 import path from 'path';
-import { getDemoList } from './core/demoList';
+import { getDemoIndex } from './core/demoIndex';
 import { createDemo } from './core/demo';
 
-const program = new Command();
-program
-  .version('1.0.0')
+new Command()
+  .version(readPackageJson('version'))
+  .description(readPackageJson('description'))
   .command('init [path]', 'Init GS Demo', { executableFile: path.join(__dirname, 'cli/init.js') })
   .command('archive', 'Archive GS Demo', { executableFile: path.join(__dirname, 'cli/archive.js')})
   .option('-l, --list', 'list all demos')
   .option('-c, --create <name>', 'create a demo')
   .action(function (options) {
     try {
-      if (!hasInited()) {
-        log.warning('Please init GS Demo first.');
+      if (!initCLIOrWarning()) {
         return;
       }
 
       if (_.isEmpty(options)) {
         listDemos();
+        return;
       }
 
       const { list, create: demoName } = options;
@@ -50,7 +51,7 @@ program
 
 function listDemos(): void {
   try {
-    const list: types.DemoList = getDemoList();
+    const list = getDemoIndex();
     list.forEach(({ code, name }) => {
       log.info('[', 'success:', code, 'info:', ']', name);
     });

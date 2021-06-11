@@ -1,12 +1,23 @@
-import * as types from './types';
-import { addDemo } from '../lib/storage';
+import * as types from '../lib/types';
+import storage from '../lib/storage';
+import { v4 as uuid } from 'uuid';
 
 function createDemo(name: string) {
-  addDemo({
-    name
-  });
+  try {
+    const id = uuid();
+    const demo: types.Demo = {
+      id,
+      name
+    };
+    storage.add(id, demo);
+    storage.addToIndex(id, {
+      name
+    });
+  } catch (error) {
+    throw `createDemo failed: ${error}`;
+  }
 }
 
 export {
   createDemo
-}
+};

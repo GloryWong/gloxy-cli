@@ -1,101 +1,118 @@
 import { LocalStorage } from 'node-localstorage';
-import { v4 as uuid } from 'uuid';
-import { STORAGE_DIR } from './constant';
-import { Demo } from './types';
-const storage = new LocalStorage(STORAGE_DIR);
+import conf from './conf';
 
-const INDEX_NAME = '__demoIndex__';
-const INDEX_DEFAULT_VALUE: Index = [];
+// types
 type Index = Array<IndexItem>;
 type IndexItem = {
   'id': string,
-  'name': string
+  [key: string]: any
 };
 
-__initIndex();
+class Storage {
+  #ls: any = null;
+  // constants
+  private INDEX_NAME: string= '__demoIndex__';
+  private INDEX_DEFAULT_VALUE: Index = [];
 
-export {
-  addDemo,
-  removeDemo,
-  getIndex
-};
+  init(storagePath: string) {
+    this.#ls = new LocalStorage(storagePath);
 
-function addDemo(demo: Demo): void {
-  try {
-    const id = uuid();
-    storage.setItem(id, __str(demo));
-    addToIndex(id, demo.name);
-  } catch (error) {
-    throw `addDemo failed: ${error}`;
-  }
-}
-
-function removeDemo(id: string): void {
-  try {
-    storage.removeItem(id);
-    removeFromIndex(id);
-  } catch (error) {
-    throw `removeDemo failed: ${error}`;
-  }
-}
-
-function addToIndex(id: string, name: string) {
-  try {
-    const index = getIndex();
-    const item: IndexItem = {
-      id,
-      name
-    };
-    index.push(item);
-    storage.setItem(INDEX_NAME, __str(index));
-  } catch (error) {
-    throw `addToIndex failed: ${error}`;
-  }
-}
-
-function removeFromIndex(id: string) {
-  try {
-    const index = getIndex();
-    const i = index.findIndex((item) => item.id === id);
-    index.splice(i, 1);
-  } catch (error) {
-    throw `removeFromIndex failed: ${error}`;
-  }
-}
-
-function getIndex(): Index {
-  try {
-    const value = storage.getItem(INDEX_NAME);
-    return value === null ? value : __par(value);
-  } catch (error) {
-    throw `getIndex failed: ${error}`;
-  }
-};
-
-function searchIndex(name: string) {};
-
-function __initIndex() {
-  try {
-    if (!getIndex()) {
-      storage.setItem(INDEX_NAME, __str(INDEX_DEFAULT_VALUE));
+    if (!this.hasIndex()) {
+      this.initIndex();
     }
-  } catch (error) {
-    throw `__initIndex failed: ${error}`;
+  }
+
+  private initIndex() {
+    try {
+      this.#ls.setItem(this.INDEX_NAME, this.str(this.INDEX_DEFAULT_VALUE));
+      conf.set('indexName', this.INDEX_NAME);
+    } catch (error) {
+      throw `initIndex failed: ${error}`;
+    }
+  }
+
+  private hasIndex() {
+    try {
+      return Boolean(conf.get('indexName'));
+    } catch (error) {
+      throw `hasIndex failed: ${error}`;
+    }
+  }
+
+  add(id: string, value: any) {
+    try {
+      this.#ls.setItem(id, this.str(value));
+    } catch (error) {
+      throw `add failed: ${error}`;
+    }
+  }
+
+  remove(id: string) {
+    try {
+      this.#ls.removeItem(id);
+    } catch (error) {
+      throw `remove failed: ${error}`;
+    }
+  }
+
+  addToIndex(id: string, value: object) {
+    try {
+      const index: Index = this.all;
+      const item: IndexItem = {
+        id,
+        ...value
+      };
+      index.push(item);
+      this.#ls.setItem(this.INDEX_NAME, this.str(index));
+    } catch (error) {
+      throw `addToIndex failed: ${error}`;
+    }
+  }
+
+  removeFromIndex(id: string) {
+    try {
+      const index = this.all;
+      const i = index.findIndex((item) => item.id === id);
+      index.splice(i, 1);
+      this.#ls.setItem(this.INDEX_NAME, this.str(index));
+    } catch (error) {
+      throw `removeFromIndex failed: ${error}`;
+    }
+  }
+
+  get all(): Index {
+    try {
+      return this.par(this.#ls.getItem(this.INDEX_NAME) || '[]');
+    } catch (error) {
+      throw `get all index failed: ${error}`;
+    }
+  }
+
+  getIndexItem(id: string): IndexItem {
+    try {
+      const index = this.par(this.#ls.getItem(this.INDEX_NAME) || '[]');
+      return index.find((item: IndexItem) => item.id === id);
+    } catch (error) {
+      throw `getIndex failed: ${error}`;
+    }
+  };
+
+  protected str(value: any): string {
+    try {
+      return JSON.stringify(value);
+    } catch (error) {
+      throw `str failed: ${error}`;
+    }
+  }
+
+  protected par(value: string): any {
+    try {
+      return JSON.parse(value);
+    } catch (error) {
+      throw `par failed: ${error}`;
+    }
   }
 }
 
-function __str(value: any): string {
-  try {
-    return JSON.stringify(value);
-  } catch (error) {
-    throw `__str failed: ${error}`;
-  }
-}
-
-function __par(value: string): any {
-  try {
-    return JSON.parse(value);
-  } catch (error) {
-    throw `__par failed: ${error}`;
-  }
-}
+const storage = new Storage();
+export default storage;
