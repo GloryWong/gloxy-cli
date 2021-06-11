@@ -2,7 +2,6 @@ import { Command } from 'commander';
 
 // TODO: choose demo from list
 // TODO: direct choose demo
-// TODO: create demo
 // TODO: remove demo to trash
 
 import _ from 'lodash';
@@ -28,6 +27,7 @@ new Command()
         return;
       }
 
+      // list demos by default if empty arguments
       if (_.isEmpty(options)) {
         listDemos();
         return;
