@@ -10,7 +10,7 @@ import log from '@glorywong/log';
 import { prompt } from 'enquirer';
 import * as types from './lib/types';
 import { readPackageJson } from './lib/utility';
-import { initCLIOrWarning } from './core/initGSDemo';
+import { initCLIOrWarning } from './cli-helper/init';
 import path from 'path';
 import { getDemoIndex } from './core/demoIndex';
 import { createDemo } from './core/demo';

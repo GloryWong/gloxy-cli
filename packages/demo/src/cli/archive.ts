@@ -1,7 +1,6 @@
 import { Command } from 'commander';
 import { archive } from '../core/archiveGSDemo';
-import { hasInited, initCLIOrWarning } from '../core/initGSDemo';
-import log from '@glorywong/log';
+import { initCLIOrWarning } from '../cli-helper/init';
 
 new Command()
   .action(function () {

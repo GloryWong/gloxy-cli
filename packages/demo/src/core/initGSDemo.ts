@@ -2,44 +2,15 @@ import copy from 'recursive-copy';
 import log from '@glorywong/log';
 import conf from '../lib/conf';
 import path from 'path';
-import storage from '../lib/storage';
 import PATH from '../lib/path';
 
 export {
   init,
-  hasInited,
-  initCLI,
-  initCLIOrWarning
+  hasInited
 };
 
 function hasInited(): boolean {
   return conf.has('root');
-}
-
-function initCLI() {
-  try {
-    // init PATH
-    PATH.ROOT = String(conf.get('root'));
-
-    // init storage
-    storage.init(PATH.STORAGE);
-  } catch (error) {
-    throw `initCLI failed: ${error}`;
-  }
-}
-
-function initCLIOrWarning(): boolean{
-  try {
-    if (hasInited()) {
-      initCLI();
-      return true;
-    } else {
-      log.warning('GS Demo does not exist, please init first.');
-      return false;
-    }
-  } catch (error) {
-    throw `initWarning failed: ${error}`;
-  }
 }
 
 /**
