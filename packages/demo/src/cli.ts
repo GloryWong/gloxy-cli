@@ -33,15 +33,15 @@ new Command()
         return;
       }
 
-      const { list, create: demoName } = options;
+      const { list, create } = options;
 
       if (list) {
         listDemos();
         return;
       }
 
-      if (demoName) {
-        createDemo(demoName);
+      if (create) {
+        createDemo(create);
       }
     } catch (error) {
       log.error('ERROR:', error);

@@ -1,13 +1,13 @@
 import * as types from '../lib/types';
-import storage from '../lib/storage';
+import * as index from '../storage/index';
 
 function getDemoIndex(): types.DemoIndex {
   try {
-    const index = storage.all;
-    const demoIndex: types.DemoIndex = index.map((item, index) => (
+    const indexAll = index.getAll();
+    const demoIndex: types.DemoIndex = indexAll.map((item, code) => (
       {
         name: item.name,
-        code: index
+        code: code
       }
     ));
 
