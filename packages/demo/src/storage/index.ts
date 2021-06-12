@@ -17,7 +17,8 @@ export {
   remove,
   getAll,
   getIdByCode,
-  removeByCode
+  removeByCode,
+  getByCode
 };
 
 function add(id: string, value: object) {
@@ -70,12 +71,12 @@ function setAll(value: Index) {
   }
 }
 
-function getIdByCode(code: number): string {
+function getByCode(code: number): IndexItem {
   try {
     const index: Index = getAll();
-    return index[code]?.id;
+    return index[code];
   } catch (error) {
-    throw `getIdByCode failed: ${error}`;
+    throw `getByCode failed: ${error}`;
   }
 }
 
@@ -86,5 +87,13 @@ function removeByCode(code: number): void {
     setAll(index);
   } catch (error) {
     throw `removeByCode failed: ${error}`;
+  }
+}
+
+function getIdByCode(code: number): string {
+  try {
+    return getByCode(code)?.id;
+  } catch (error) {
+    throw `getIdByCode failed: ${error}`;
   }
 }

@@ -13,25 +13,32 @@ import { initCLIOrWarning } from './cli-helper/init';
 import path from 'path';
 import { createDemo, removeDemo } from './core/demo';
 import { listDemos } from './option/demoList';
+import { openDemo } from './option/demo';
 
 new Command()
   .version(readPackageJson('version'))
   .description(readPackageJson('description'))
+  .arguments('[demoCode]')
   .command('init [path]', 'Init GS Demo', { executableFile: path.join(__dirname, 'command/init.js') })
   .command('archive', 'Archive GS Demo', { executableFile: path.join(__dirname, 'command/archive.js')})
   .option('-l, --list', 'list all demos')
   .option('-c, --create <name>', 'create a demo')
   .option('-t, --tag <tags...>', 'use tags')
   .option('-r, --remove <code>', 'remove a demo with its code')
-  .action(function (options) {
+  .action(function (demoCode, options) {
     try {
       if (!initCLIOrWarning()) {
         return;
       }
 
       // list demos by default if empty arguments
-      if (_.isEmpty(options)) {
+      if (!demoCode && _.isEmpty(options)) {
         listDemos();
+        return;
+      }
+
+      if (demoCode) {
+        openDemo(demoCode);
         return;
       }
 
