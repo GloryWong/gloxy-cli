@@ -11,14 +11,14 @@ import * as types from './lib/types';
 import { readPackageJson } from './lib/utility';
 import { initCLIOrWarning } from './cli-helper/init';
 import path from 'path';
-import { getDemoIndex } from './core/demoIndex';
 import { createDemo, removeDemo } from './core/demo';
+import { listDemos } from './option/demoList';
 
 new Command()
   .version(readPackageJson('version'))
   .description(readPackageJson('description'))
-  .command('init [path]', 'Init GS Demo', { executableFile: path.join(__dirname, 'cli/init.js') })
-  .command('archive', 'Archive GS Demo', { executableFile: path.join(__dirname, 'cli/archive.js')})
+  .command('init [path]', 'Init GS Demo', { executableFile: path.join(__dirname, 'command/init.js') })
+  .command('archive', 'Archive GS Demo', { executableFile: path.join(__dirname, 'command/archive.js')})
   .option('-l, --list', 'list all demos')
   .option('-c, --create <name>', 'create a demo')
   .option('-t, --tag <tags...>', 'use tags')
@@ -57,17 +57,6 @@ new Command()
     }
   })
   .parse();
-
-function listDemos(): void {
-  try {
-    const list = getDemoIndex();
-    list.forEach(({ code, name }) => {
-      log.info('[', 'success:', code, 'info:', ']', name);
-    });
-  } catch (error) {
-    log.error('list demos failed:', error);
-  }
-}
 
 // async function selectDemo(): Promise<void> {
 //   try {
