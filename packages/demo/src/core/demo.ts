@@ -34,14 +34,10 @@ function createDemo(name: string, tags: string[]) {
   }
 }
 
-function removeDemo(code: number): void {
+function removeDemo(id: string): void {
   try {
-    const id = index.getIdByCode(code);
-    if (!id) {
-      throw `demo with code '${code}' does not exist`;
-    }
     storage.remove(id);
-    index.removeByCode(code);
+    index.remove(id);
 
     // archive demo dir
     const { name: gsDemoName } = path.parse(PATH.ROOT);

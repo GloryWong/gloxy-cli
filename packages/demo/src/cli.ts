@@ -11,9 +11,9 @@ import * as types from './lib/types';
 import { readPackageJson } from './lib/utility';
 import { initCLIOrWarning } from './cli-helper/init';
 import path from 'path';
-import { createDemo, removeDemo } from './core/demo';
+import { createDemo } from './core/demo';
 import { listDemos } from './option/demoList';
-import { openDemo } from './option/demo';
+import { openDemo, removeDemo } from './option/demo';
 
 new Command()
   .version(readPackageJson('version'))
@@ -25,7 +25,7 @@ new Command()
   .option('-c, --create <name>', 'create a demo')
   .option('-t, --tag <tags...>', 'use tags')
   .option('-r, --remove <code>', 'remove a demo with its code')
-  .action(function (demoCode, options) {
+  .action(async function (demoCode, options) {
     try {
       if (!initCLIOrWarning()) {
         return;
@@ -56,8 +56,7 @@ new Command()
       }
 
       if (remove) {
-        removeDemo(remove);
-        log.success('Archived');
+        await removeDemo(remove);
       }
     } catch (error) {
       log.error('ERROR:', error);

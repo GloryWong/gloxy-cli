@@ -3,6 +3,34 @@ import PATH from '../lib/path';
 import { getByCode } from '../storage/index';
 import path from 'path';
 import execa from 'execa';
+import * as demo from '../core/demo';
+import * as index from '../storage/index';
+import { prompt } from 'inquirer';
+
+async function removeDemo(code: number): Promise<void> {
+  try {
+    const demoIndexItem = index.getByCode(code);
+    if (!demoIndexItem) {
+      log.error(`demo with code '${code}' does not exist`);
+      return;
+    }
+
+    const { id, name: demoName } = demoIndexItem;
+
+    const { question }: { question: boolean } = await prompt({
+      type: 'confirm',
+      name: 'question',
+      message: `Do you really want to archive demo '${demoName}'?`
+    });
+
+    if (question) {
+      demo.removeDemo(id);
+      log.success(`demo '${demoName}' archived`);
+    }
+  } catch (error) {
+    throw `removeDemo failed: ${error}`;
+  }
+}
 
 function openDemo(code: number, reuseWindow: boolean = false): void {
   try {
@@ -22,5 +50,6 @@ function openDemo(code: number, reuseWindow: boolean = false): void {
 }
 
 export {
-  openDemo
+  openDemo,
+  removeDemo
 };
