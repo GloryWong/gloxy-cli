@@ -2,8 +2,9 @@ import conf from '../lib/conf';
 import copy from 'recursive-copy';
 import fs from 'fs';
 import path from 'path';
-import { DateTime } from 'luxon';
 import log from '@glorywong/log';
+import * as utility from '../lib/utility';
+import { DateTime } from 'luxon';
 
 async function archive() {
   try {
@@ -11,11 +12,7 @@ async function archive() {
     const { name } = path.parse(root);
 
     // move GS Demo to archive
-    const archivedPath = path.join(process.env.HOME || '', '.gsdemo-archive', `${name}.${DateTime.now()}`);
-    await copy(root, archivedPath);
-    fs.rmdirSync(root, {
-      recursive: true
-    });
+    await utility.archive(root, `${name}.${DateTime.now()}`);
     
     // delete 'root' in conf
     conf.delete('root');

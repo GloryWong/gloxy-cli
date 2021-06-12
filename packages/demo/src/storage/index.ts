@@ -15,7 +15,9 @@ export {
   add,
   get,
   remove,
-  getAll
+  getAll,
+  getIdByCode,
+  removeByCode
 };
 
 function add(id: string, value: object) {
@@ -65,5 +67,24 @@ function setAll(value: Index) {
     storage.set(INDEX_NAME, value);
   } catch (error) {
     throw `setAll failed: ${error}`;
+  }
+}
+
+function getIdByCode(code: number): string {
+  try {
+    const index: Index = getAll();
+    return index[code]?.id;
+  } catch (error) {
+    throw `getIdByCode failed: ${error}`;
+  }
+}
+
+function removeByCode(code: number): void {
+  try {
+    const index: Index = getAll();
+    index.splice(code, 1);
+    setAll(index);
+  } catch (error) {
+    throw `removeByCode failed: ${error}`;
   }
 }

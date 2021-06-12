@@ -12,7 +12,7 @@ import { readPackageJson } from './lib/utility';
 import { initCLIOrWarning } from './cli-helper/init';
 import path from 'path';
 import { getDemoIndex } from './core/demoIndex';
-import { createDemo } from './core/demo';
+import { createDemo, removeDemo } from './core/demo';
 
 new Command()
   .version(readPackageJson('version'))
@@ -21,6 +21,8 @@ new Command()
   .command('archive', 'Archive GS Demo', { executableFile: path.join(__dirname, 'cli/archive.js')})
   .option('-l, --list', 'list all demos')
   .option('-c, --create <name>', 'create a demo')
+  .option('-t, --tag <tags...>', 'use tags')
+  .option('-r, --remove <code>', 'remove a demo with its code')
   .action(function (options) {
     try {
       if (!initCLIOrWarning()) {
@@ -33,7 +35,7 @@ new Command()
         return;
       }
 
-      const { list, create } = options;
+      const { list, create, tag, remove } = options;
 
       if (list) {
         listDemos();
@@ -41,7 +43,14 @@ new Command()
       }
 
       if (create) {
-        createDemo(create);
+        createDemo(create, tag);
+        log.success('demo\'', create, '\'created');
+        return;
+      }
+
+      if (remove) {
+        removeDemo(remove);
+        log.success('Archived');
       }
     } catch (error) {
       log.error('ERROR:', error);
