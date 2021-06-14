@@ -47,7 +47,7 @@
     "node-localstorage": "^2.2.1",
     "ora": "^5.4.0",
     "recursive-copy": "^2.0.11",
-    "uuid": "^8.3.2"
+    "uid": "^2.0.0"
   },
   "bugs": {
     "url": "https://github.com/GloryWong/gs-cli/issues"

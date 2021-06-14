@@ -7,6 +7,14 @@ import * as demo from '../core/demo';
 import * as index from '../storage/index';
 import { prompt } from 'inquirer';
 
+function createDemo(name: string): void {
+  try {
+    demo.createDemo(name);
+  } catch (error) {
+    throw `createDemo failed: ${error}`;
+  }
+}
+
 async function removeDemo(code: number): Promise<void> {
   try {
     const demoIndexItem = index.getByCode(code);
@@ -50,6 +58,7 @@ function openDemo(code: number, reuseWindow: boolean = false): void {
 }
 
 export {
+  createDemo,
   openDemo,
   removeDemo
 };

@@ -11,9 +11,8 @@ import * as types from './lib/types';
 import { readPackageJson } from './lib/utility';
 import { initCLIOrWarning } from './command-helper/init';
 import path from 'path';
-import { createDemo } from './core/demo';
 import { listDemos } from './option/demoList';
-import { openDemo, removeDemo } from './option/demo';
+import { createDemo, openDemo, removeDemo } from './option/demo';
 
 new Command()
   .version(readPackageJson('version'))
@@ -50,7 +49,7 @@ new Command()
       }
 
       if (create) {
-        createDemo(create, tag);
+        createDemo(create);
         log.success('demo\'', create, '\'created');
         return;
       }

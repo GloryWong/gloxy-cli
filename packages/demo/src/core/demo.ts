@@ -1,47 +1,49 @@
 import * as types from '../lib/types';
 import storage from '../lib/storage';
 import * as index from '../storage/index';
-import { v4 as uuid } from 'uuid';
+import { uid } from 'uid/secure';
 import mkdirp from 'mkdirp';
 import PATH from '../lib/path';
 import path from 'path';
 import { archive } from '../lib/utility';
 import { DateTime } from 'luxon';
 
-function createDemo(name: string, tags: string[]) {
-  const id = uuid();
+// demo name should be unique in a GS Demo
+function createDemo(name: string, tags?: string[]) {
+  const id = uid();
   try {
+    if (index.existsByName(name)) {
+      throw `same name demo '${name}' already exists`;
+    }
+
     const demo: types.Demo = {
       id,
       name
     };
 
-    // const tags: types.Tags = [];
-    // if (tags.length) {
-    //   //
-    // }
     storage.add(id, demo);
     index.add(id, {
       name
     });
 
     // create demo dir
-    mkdirp.sync(path.join(PATH.ROOT, id));
+    mkdirp.sync(path.join(PATH.ROOT, name));
   } catch (error) {
-    storage.remove(id);
-    index.remove(id);
     throw `createDemo failed: ${error}`;
   }
 }
 
 function removeDemo(id: string): void {
   try {
+    const demo: types.Demo = storage.get(id, '');
+    const { name: demoName } = demo;
+
     storage.remove(id);
     index.remove(id);
 
     // archive demo dir
     const { name: gsDemoName } = path.parse(PATH.ROOT);
-    archive(path.join(PATH.ROOT, id), `${gsDemoName}.demo.${id}`);
+    archive(path.join(PATH.ROOT, demoName), `${gsDemoName}.${demoName}.${id}`);
   } catch (error) {
     throw `removeDemo failed: ${error}`;
   }

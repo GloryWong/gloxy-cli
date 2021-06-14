@@ -1,5 +1,7 @@
 import storage from '../lib/storage';
 
+// Note: the array index of item in INDEX storage as Code
+
 // constants
 const INDEX_NAME: string = '__gsDemoIndex__';
 const INDEX_DEFAULT_VALUE: Index = [];
@@ -18,7 +20,8 @@ export {
   getAll,
   getIdByCode,
   removeByCode,
-  getByCode
+  getByCode,
+  existsByName,
 };
 
 function add(id: string, value: object) {
@@ -68,6 +71,15 @@ function setAll(value: Index) {
     storage.set(INDEX_NAME, value);
   } catch (error) {
     throw `setAll failed: ${error}`;
+  }
+}
+
+function existsByName(name: string): boolean {
+  try {
+    const index = getAll();
+    return !!index.find(({ name: _name }) => _name === name);
+  } catch (error) {
+    throw `exists failed: ${error}`;
   }
 }
 
