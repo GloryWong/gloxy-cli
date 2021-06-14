@@ -49,7 +49,7 @@ function openDemo(code: number, reuseWindow: boolean = false): void {
     }
 
     const { id, name } = demoIndexItem;
-    const demoPath = path.join(PATH.ROOT, id);
+    const demoPath = path.join(PATH.ROOT, name);
     execa.sync('code-insiders', [demoPath, reuseWindow ? '-r' : '']);
     log.success('Demo', `'${name}'`, 'was opened in', reuseWindow ? 'the last active VSCode window' : 'a new VSCode window');
   } catch (error) {

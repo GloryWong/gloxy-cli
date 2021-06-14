@@ -11,7 +11,7 @@ import * as types from './lib/types';
 import { readPackageJson } from './lib/utility';
 import { initCLIOrWarning } from './command-helper/init';
 import path from 'path';
-import { listDemos } from './option/demoList';
+import { listDemos, chooseDemo } from './option/demoList';
 import { createDemo, openDemo, removeDemo } from './option/demo';
 
 new Command()
@@ -32,7 +32,7 @@ new Command()
 
       // list demos by default if empty arguments
       if (!demoCode && _.isEmpty(options)) {
-        listDemos();
+        chooseDemo();
         return;
       }
 
@@ -62,30 +62,3 @@ new Command()
     }
   })
   .parse();
-
-// async function selectDemo(): Promise<void> {
-//   try {
-//     const list: types.DemoList = getDemoList();
-//     const { demoFlag }: { demoFlag: string } = await prompt({
-//       type: 'input',
-//       name: 'demoFlag',
-//       message: 'Input demo code or name'
-//     });
-
-//     const demo = list.find(({ code, name }) => {
-//       if (isNumberString(demoFlag)) {
-//         return code === Number(demoFlag);
-//       } else {
-//         return name === demoFlag;
-//       }
-//     });
-
-//     if (!demo) {
-//       throw `Demo '${demo}' dose not exist`;
-//     }
-
-//     log.success(`You select demo ${demo.name}`);
-//   } catch (error) {
-//     log.error('select a demo failed:', error);
-//   }
-// }
