@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import { archive } from '../core/archiveGSDemo';
-import { initCLIOrWarning } from '../cli-helper/init';
+import { initCLIOrWarning } from '../command-helper/init';
 import log from '@glorywong/log';
 import { prompt } from 'inquirer';
 import PATH from '../lib/path';

@@ -9,7 +9,7 @@ import log from '@glorywong/log';
 import { prompt } from 'enquirer';
 import * as types from './lib/types';
 import { readPackageJson } from './lib/utility';
-import { initCLIOrWarning } from './cli-helper/init';
+import { initCLIOrWarning } from './command-helper/init';
 import path from 'path';
 import { createDemo } from './core/demo';
 import { listDemos } from './option/demoList';
