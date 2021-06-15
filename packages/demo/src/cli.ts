@@ -1,8 +1,4 @@
-import { Command, description } from 'commander';
-
-// TODO: choose demo from list
-// TODO: direct choose demo
-// TODO: remove demo to trash
+import { Command } from 'commander';
 
 import _ from 'lodash';
 import log from '@glorywong/log';
