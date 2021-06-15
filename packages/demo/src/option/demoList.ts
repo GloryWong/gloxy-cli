@@ -1,13 +1,15 @@
-import { getDemoIndex } from '../core/demoIndex';
+import { getDemoIndex, searchDemoIndex } from '../core/demoIndex';
 import log from '@glorywong/log';
 import { prompt } from 'inquirer';
 import * as demo from './demo';
+import { DemoIndex } from '../lib/types';
+import { openDemo } from './demo';
+import * as types from '../lib/types';
 
-function listDemos(): boolean {
+function __listDemos(list: DemoIndex): boolean {
   try {
-    const list = getDemoIndex();
     if (!list.length) {
-      log.info('-- no demo --');
+      log.info('-- none --');
       return false;
     }
 
@@ -19,29 +21,71 @@ function listDemos(): boolean {
 
     return true;
   } catch (error) {
-    log.error('list demos failed:', error);
-    return false;
+    throw `__listDemos failed: ${error}`;
   }
 }
 
-async function chooseDemo(): Promise<void> {
+async function __chooseDemo(demoIndex: types.DemoIndex): Promise<boolean> {
   try {
-    if (!listDemos()) {
-      return;
+    const { input } = await prompt({
+      type: 'input',
+      name: 'input',
+      message: 'Choose a correct demo code to open (-r resue window):'
+    });
+
+    // parse input
+    const matches = input.trim().match(/^(-r\s+)?(\d+)(\s+-r)?$/);
+    if (!matches) {
+      return false;
     }
 
-    const { demoCode } = await prompt({
-      type: 'input',
-      name: 'demoCode',
-      message: 'Choose a demo code to open:'
-    });
-    demo.openDemo(demoCode);
+    const reuseWindow = Boolean(matches[1]) || Boolean(matches[3]);
+    const demoCode = matches[2];
+
+    const demoIndexItem = demoIndex.find(({ code }) => Number(demoCode) === code);
+    if (!demoIndexItem) {
+      return false;
+    }
+
+    demo.openDemo(demoIndexItem.id, reuseWindow);
+    return true;
   } catch (error) {
-    log.error('choose demo failed:', error);
+    throw `__chooseDemo failed: ${error}`;
+  }
+}
+
+function listAllDemos() {
+  try {
+    const demoIndex = getDemoIndex();
+    __listDemos(demoIndex);
+  } catch (error) {
+    log.error('list all demos failed:', error);
+  }
+}
+
+function searchDemos(str: string): types.DemoIndex {
+  try {
+    const demoIndex = searchDemoIndex(str);
+    __listDemos(demoIndex);
+    return demoIndex;
+  } catch (error) {
+    log.error('search demo failed:', error);
+    return [];
+  }
+}
+
+async function searchAndChooseDemo(str: string) {
+  try {
+    const demoIndex = searchDemos(str);
+    if (!await __chooseDemo(demoIndex)) {
+      searchAndChooseDemo(str);
+    }
+  } catch (error) {
+    log.error('search and choose demo failed:', error);
   }
 }
 
 export {
-  listDemos,
-  chooseDemo
+  listAllDemos,
+  searchAndChooseDemo
 };

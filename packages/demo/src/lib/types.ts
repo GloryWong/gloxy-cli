@@ -9,10 +9,12 @@ type Demo = {
   tags?: Array<DemoTag>
 }
 
-type DemoIndex = Array<{ name: string, code: number, tags?: DemoTag}>;
+type DemoIndexItem = { id: string, name: string, code: number, tags?: DemoTag };
+type DemoIndex = Array<DemoIndexItem>;
 
 export {
   DemoTag,
   Demo,
+  DemoIndexItem,
   DemoIndex
 };

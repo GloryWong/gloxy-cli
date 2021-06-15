@@ -1,11 +1,12 @@
 import log from '@glorywong/log';
 import PATH from '../lib/path';
-import { getByCode } from '../storage/index';
+import { get } from '../storage/index';
 import path from 'path';
 import execa from 'execa';
 import * as demo from '../core/demo';
 import * as index from '../storage/index';
 import { prompt } from 'inquirer';
+import * as types from '../lib/types';
 
 function createDemo(name: string): void {
   try {
@@ -40,18 +41,18 @@ async function removeDemo(code: number): Promise<void> {
   }
 }
 
-function openDemo(code: number, reuseWindow: boolean = false): void {
+function openDemo(id: string, reuseWindow: boolean = false): void {
   try {
-    const demoIndexItem = getByCode(code);
+    const demoIndexItem = get(id);
     if (!demoIndexItem) {
-      log.error(`demo with code '${code}' does not exist`);
+      log.error(`The demo does not exist`);
       return;
     }
 
-    const { id, name } = demoIndexItem;
+    const { name } = demoIndexItem;
     const demoPath = path.join(PATH.ROOT, name);
-    execa.sync('code-insiders', [demoPath, reuseWindow ? '-r' : '']);
-    log.success('Demo', `'${name}'`, 'was opened in', reuseWindow ? 'the last active VSCode window' : 'a new VSCode window');
+    execa('code-insiders', [demoPath, reuseWindow ? '-r' : '']);
+    log.success('Demo', `'${name}'`, 'opened in', reuseWindow ? 'the last active VSCode window' : 'a new VSCode window');
   } catch (error) {
     throw `openDemo failed: ${error}`;
   }

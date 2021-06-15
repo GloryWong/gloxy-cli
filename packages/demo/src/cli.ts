@@ -11,40 +11,40 @@ import * as types from './lib/types';
 import { readPackageJson } from './lib/utility';
 import { initCLIOrWarning } from './command-helper/init';
 import path from 'path';
-import { listDemos, chooseDemo } from './option/demoList';
+import { listAllDemos, searchAndChooseDemo } from './option/demoList';
 import { createDemo, openDemo, removeDemo } from './option/demo';
 
-new Command()
+const program = new Command();
+program
   .version(readPackageJson('version'))
   .description(readPackageJson('description'))
-  .arguments('[demoCode]')
+  .arguments('[demoSelector]')
   .command('init [path]', 'Init GS Demo', { executableFile: path.join(__dirname, 'command/init.js') })
   .command('archive', 'Archive GS Demo', { executableFile: path.join(__dirname, 'command/archive.js')})
   .option('-l, --list', 'list all demos')
-  .option('-c, --create <name>', 'create a demo')
-  .option('-t, --tag <tags...>', 'use tags')
-  .option('-r, --remove <code>', 'remove a demo with its code')
-  .action(async function (demoCode, options) {
+  .option('--create <name>', 'create a demo')
+  .option('--tag <tags...>', 'use tags')
+  .option('--remove <code>', 'remove a demo with its code')
+  .action(async function (demoSelector, options) {
     try {
+      if (!demoSelector && _.isEmpty(options)) {
+        program.help();
+        return;
+      }
+
       if (!initCLIOrWarning()) {
         return;
       }
 
-      // list demos by default if empty arguments
-      if (!demoCode && _.isEmpty(options)) {
-        chooseDemo();
-        return;
-      }
-
-      if (demoCode) {
-        openDemo(demoCode);
+      if (demoSelector) {
+        await searchAndChooseDemo(demoSelector);
         return;
       }
 
       const { list, create, tag, remove } = options;
 
       if (list) {
-        listDemos();
+        listAllDemos();
         return;
       }
 
