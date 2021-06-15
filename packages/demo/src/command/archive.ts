@@ -20,10 +20,23 @@ new Command()
         message: `Are you sure to archive GSDemo '${gsDemoName}'?`
       });
 
-      if (question) {
-        await archive();
-        log.success(`GSDemo '${gsDemoName}' archived`);
+      if (!question) {
+        return;
       }
+
+      const { gsDemoName: _gsDemoName }: { gsDemoName: string } = await prompt({
+        type: 'input',
+        name: 'gsDemoName',
+        message: `Please input the GSDemo name to confirm:`
+      });
+
+      if (_gsDemoName.trim() !== gsDemoName) {
+        log.error('GSDemo name not matched. Archive failed.')
+        return;
+      }
+
+      await archive();
+      log.success(`GSDemo '${gsDemoName}' archived`);
     } catch (error) {
       log.error('Archive failed:', error);
     }
