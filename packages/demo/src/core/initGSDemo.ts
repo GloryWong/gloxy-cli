@@ -3,6 +3,7 @@ import log from '@glorywong/log';
 import conf from '../lib/conf';
 import path from 'path';
 import PATH from '../lib/path';
+import Listr from 'listr';
 
 export {
   init,
@@ -20,22 +21,31 @@ async function init(gsDemoPath: string = 'gsdemo'): Promise<boolean> {
   try {
     if (hasInited()) {
       log.warning('GS Demo has existed.');
-      process.exit(1);
       return false;
     }
 
     const root = path.resolve(gsDemoPath);
-    // Init gsdemo dir
-    await copy(path.resolve(__dirname, '..', 'template'), root, {
-      dot: true
-    });
-    log.info('1. Copied template.');
 
-    // create configuration
-    conf.set('root', root);
-    conf.set('description', 'My GS Demo');
-    PATH.ROOT = root;
-    log.info('2. Wrote root to conf');
+    const tasks = new Listr([
+      {
+        title: 'Init GS Demo dir',
+        task: () => {
+          return copy(path.resolve(__dirname, '..', 'template'), root, {
+            dot: true
+          });
+        }
+      },
+      {
+        title: 'Create configuration',
+        task: () => {
+          conf.set('root', root);
+          conf.set('description', 'My GS Demo');
+          PATH.ROOT = root;
+        }
+      }
+    ]);
+
+    await tasks.run();
 
     log.success(`GS Demo was created successfully located in \n${root}.`);
 
