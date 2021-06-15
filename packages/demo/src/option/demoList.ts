@@ -3,7 +3,6 @@ import log from '@glorywong/log';
 import { prompt } from 'inquirer';
 import * as demo from './demo';
 import { DemoIndex } from '../lib/types';
-import { openDemo } from './demo';
 import * as types from '../lib/types';
 
 function __listDemos(list: DemoIndex): boolean {
@@ -30,24 +29,31 @@ async function __chooseDemo(demoIndex: types.DemoIndex): Promise<boolean> {
     const { input } = await prompt({
       type: 'input',
       name: 'input',
-      message: 'Choose a correct demo code to open (-r resue window):'
+      message: 'Choose a correct demo code (open demo by default):'
     });
 
-    // parse input
-    const matches = input.trim().match(/^(-r\s+)?(\d+)(\s+-r)?$/);
+    // parse input: -r for resuing window, -a for archiving demo
+    const matches = input.trim().match(/^(-r\s+)?(-a\s+)?(\d+)(\s+-r)?(\s+-a)?$/);
     if (!matches) {
       return false;
     }
-
-    const reuseWindow = Boolean(matches[1]) || Boolean(matches[3]);
-    const demoCode = matches[2];
+    const reuseWindow = Boolean(matches[1]) || Boolean(matches[4]);
+    const archiveDemo = Boolean(matches[2]) || Boolean(matches[5]);
+    const demoCode = matches[3];
 
     const demoIndexItem = demoIndex.find(({ code }) => Number(demoCode) === code);
     if (!demoIndexItem) {
       return false;
     }
 
-    demo.openDemo(demoIndexItem.id, reuseWindow);
+    const { id: demoId } = demoIndexItem;
+    // archive demo
+    if (archiveDemo) {
+      demo.archiveDemo(demoId);
+      return true;
+    }
+
+    demo.openDemo(demoId, reuseWindow);
     return true;
   } catch (error) {
     throw `__chooseDemo failed: ${error}`;
@@ -77,6 +83,10 @@ function searchDemos(str: string): types.DemoIndex {
 async function searchAndChooseDemo(str: string) {
   try {
     const demoIndex = searchDemos(str);
+    if (!demoIndex.length) {
+      return;
+    }
+    
     if (!await __chooseDemo(demoIndex)) {
       searchAndChooseDemo(str);
     }

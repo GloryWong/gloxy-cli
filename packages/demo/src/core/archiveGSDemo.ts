@@ -3,7 +3,7 @@ import copy from 'recursive-copy';
 import fs from 'fs';
 import path from 'path';
 import log from '@glorywong/log';
-import * as utility from '../lib/utility';
+import { archive as archiveGSDemo } from '../command-helper/archive';
 import { DateTime } from 'luxon';
 import Listr from 'listr';
 
@@ -14,9 +14,9 @@ async function archive(): Promise<any> {
 
     const tasks = new Listr([
       {
-        title: `Move GS Demo ${name} to archive`,
+        title: `Move GS Demo folder '${name}' to archive`,
         task: () => {
-          return utility.archive(root, `${name}.${DateTime.now()}`);
+          return archiveGSDemo(root, `${name}.${DateTime.now()}`);
         }
       },
       {

@@ -5,11 +5,11 @@ import Fuse from 'fuse.js';
 function getDemoIndex(): types.DemoIndex {
   try {
     const indexAll = index.getAll();
-    const demoIndex: types.DemoIndex = indexAll.map(({ name, id }, code) => (
+    const demoIndex: types.DemoIndex = indexAll.map(({ name, id }, i) => (
       {
         id,
         name,
-        code: code
+        code: i // init code
       }
     ));
 
@@ -31,7 +31,7 @@ function searchDemoIndex(str: string): types.DemoIndex {
 
     return result.map(({ item }, i) => ({
       ...item,
-      code: i
+      code: i // regenerate code for search result
     }));
   } catch (error) {
     throw `searchDemoIndex failed: ${error}`;

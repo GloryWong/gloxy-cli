@@ -5,8 +5,8 @@ import { uid } from 'uid/secure';
 import mkdirp from 'mkdirp';
 import PATH from '../lib/path';
 import path from 'path';
-import { archive } from '../lib/utility';
-import { DateTime } from 'luxon';
+import { archive } from '../command-helper/archive';
+import Listr from 'listr';
 
 // demo name should be unique in a GS Demo
 function createDemo(name: string, tags?: string[]) {
@@ -33,23 +33,40 @@ function createDemo(name: string, tags?: string[]) {
   }
 }
 
-function removeDemo(id: string): void {
+function archiveDemo(id: string): Promise<any> {
   try {
     const demo: types.Demo = storage.get(id, '');
     const { name: demoName } = demo;
 
-    storage.remove(id);
-    index.remove(id);
+    const tasks = new Listr([
+      {
+        title: `Remove '${demoName}' from Storage`,
+        task: () => {
+          storage.remove(id);
+        }
+      },
+      {
+        title: `Remove '${demoName}' from Index`,
+        task: () => {
+          index.remove(id);
+        }
+      },
+      {
+        title: `Move demo folder '${demoName}' to archive`,
+        task: () => {
+          const { name: gsDemoName } = path.parse(PATH.ROOT);
+          return archive(path.join(PATH.ROOT, demoName), `${gsDemoName}.${demoName}.${id}`);
+        }
+      }
+    ]);
 
-    // archive demo dir
-    const { name: gsDemoName } = path.parse(PATH.ROOT);
-    archive(path.join(PATH.ROOT, demoName), `${gsDemoName}.${demoName}.${id}`);
+    return tasks.run();
   } catch (error) {
-    throw `removeDemo failed: ${error}`;
+    throw `archiveDemo failed: ${error}`;
   }
 }
 
 export {
   createDemo,
-  removeDemo
+  archiveDemo
 };

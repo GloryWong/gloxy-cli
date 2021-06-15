@@ -17,7 +17,7 @@ new Command()
       const { question }: { question: boolean } = await prompt({
         type: 'confirm',
         name: 'question',
-        message: `Do you really want to archive GSDemo '${gsDemoName}'?`
+        message: `Are you sure to archive GSDemo '${gsDemoName}'?`
       });
 
       if (question) {

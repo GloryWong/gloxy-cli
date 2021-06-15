@@ -27,10 +27,10 @@ function initCLIOrWarning(): boolean {
       initCLI();
       return true;
     } else {
-      log.warning('GS Demo does not exist, please init first.');
+      log.warning('GS Demo does not exist, please init a GS Demo first.');
       return false;
     }
   } catch (error) {
-    throw `initWarning failed: ${error}`;
+    throw `initCLIOrWarning failed: ${error}`;
   }
 }

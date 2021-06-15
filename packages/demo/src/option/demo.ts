@@ -6,7 +6,6 @@ import execa from 'execa';
 import * as demo from '../core/demo';
 import * as index from '../storage/index';
 import { prompt } from 'inquirer';
-import * as types from '../lib/types';
 
 function createDemo(name: string): void {
   try {
@@ -16,28 +15,28 @@ function createDemo(name: string): void {
   }
 }
 
-async function removeDemo(code: number): Promise<void> {
+async function archiveDemo(id: string): Promise<void> {
   try {
-    const demoIndexItem = index.getByCode(code);
+    const demoIndexItem = index.get(id);
     if (!demoIndexItem) {
-      log.error(`demo with code '${code}' does not exist`);
+      log.error(`The demo does not exist`);
       return;
     }
 
-    const { id, name: demoName } = demoIndexItem;
+    const { name: demoName } = demoIndexItem;
 
     const { question }: { question: boolean } = await prompt({
       type: 'confirm',
       name: 'question',
-      message: `Do you really want to archive demo '${demoName}'?`
+      message: `Are you sure to archive demo '${demoName}'?`
     });
 
     if (question) {
-      demo.removeDemo(id);
+      await demo.archiveDemo(id);
       log.success(`demo '${demoName}' archived`);
     }
   } catch (error) {
-    throw `removeDemo failed: ${error}`;
+    throw `archiveDemo failed: ${error}`;
   }
 }
 
@@ -61,5 +60,5 @@ function openDemo(id: string, reuseWindow: boolean = false): void {
 export {
   createDemo,
   openDemo,
-  removeDemo
+  archiveDemo
 };
