@@ -1,3 +1,4 @@
+import PATH from '../lib/path';
 import conf from '../lib/conf';
 import { archive as archiveGSDemo } from '../command-helper/archive';
 import { DateTime } from 'luxon';
@@ -5,7 +6,7 @@ import Listr from 'listr';
 
 async function archive(archiveName?: string): Promise<any> {
   try {
-    const root = String(conf.get('root'));
+    const root = PATH.ROOT;
 
     const tasks = new Listr([
       {

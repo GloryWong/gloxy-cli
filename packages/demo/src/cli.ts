@@ -15,6 +15,7 @@ program
   .arguments('[demoSelector]')
   .command('init [path]', 'Init a GS Demo', { executableFile: path.join(__dirname, 'command/init.js') })
   .command('archive', 'Archive existing GS Demo', { executableFile: path.join(__dirname, 'command/archive.js')})
+  .command('info', 'Output GS Demo information', { executableFile: path.join(__dirname, 'command/info.js')})
   .option('-l, --list', 'list all demos')
   .option('--create <name>', 'create a demo')
   .option('--tag <tags...>', 'use tags')
@@ -34,7 +35,7 @@ program
         return;
       }
 
-      const { list, create, tag, remove } = options;
+      const { list, create, tag, info } = options;
 
       if (list) {
         listAllDemos();

@@ -25,6 +25,7 @@ async function init(gsDemoPath: string = 'gsdemo'): Promise<boolean> {
     }
 
     const root = path.resolve(gsDemoPath);
+    const { name: gsDemoName } = path.parse(root);
 
     const tasks = new Listr([
       {
@@ -39,6 +40,7 @@ async function init(gsDemoPath: string = 'gsdemo'): Promise<boolean> {
         title: 'Create configuration',
         task: () => {
           conf.set('root', root);
+          conf.set('name', gsDemoName);
           conf.set('description', 'My GS Demo');
           PATH.ROOT = root;
         }
