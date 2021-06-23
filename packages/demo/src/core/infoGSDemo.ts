@@ -1,4 +1,5 @@
 import conf from '../lib/conf';
+import { getDemoCount } from './demoIndex';
 
 export {
   getInfo
@@ -6,5 +7,10 @@ export {
 
 function getInfo() {
   const configuration = conf.store;
-  return configuration;
+  return {
+    name: configuration.name,
+    location: configuration.root,
+    description: configuration.description,
+    demoCount: getDemoCount()
+  };
 }

@@ -28,7 +28,7 @@ new Command()
       const { gsDemoName: _gsDemoName }: { gsDemoName: string } = await prompt({
         type: 'input',
         name: 'gsDemoName',
-        message: `Please input the GSDemo name to confirm:`
+        message: `Please confirm the GSDemo name:`
       });
 
       if (_gsDemoName.trim() !== gsDemoName) {
@@ -39,7 +39,7 @@ new Command()
       const { archiveName }: { archiveName: string} = await prompt({
         type: 'input',
         name: 'archiveName',
-        message: `Input archive name for this GSDemo:`,
+        message: `Give an archive name for this GSDemo:`,
         default: () => {
           const root = String(conf.get('root'));
           const { name } = path.parse(root);

@@ -19,6 +19,15 @@ function getDemoIndex(): types.DemoIndex {
   }
 }
 
+function getDemoCount(): number {
+  try {
+    const indexAll = index.getAll();
+    return indexAll.length;
+  } catch (error) {
+    throw `get demo count failed: ${error}`;
+  }
+}
+
 function searchDemoIndex(str: string): types.DemoIndex {
   try {
     const demoIndex = getDemoIndex();
@@ -40,5 +49,6 @@ function searchDemoIndex(str: string): types.DemoIndex {
 
 export {
   getDemoIndex,
-  searchDemoIndex
+  searchDemoIndex,
+  getDemoCount
 };

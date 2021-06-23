@@ -6,12 +6,13 @@ import { initCLIOrWarning } from './command-helper/init';
 import path from 'path';
 import { listAllDemos, searchAndChooseDemo } from './option/demoList';
 import { createDemo } from './option/demo';
-import { gsDemoVersion, gsDemoDescription } from './command-helper/info';
+import { cliVersion, cliDescription, cliUsage } from './command-helper/cliInfo';
 
 const program = new Command();
 program
-  .version(gsDemoVersion)
-  .description(gsDemoDescription)
+  .version(cliVersion)
+  .description(cliDescription)
+  .usage(cliUsage)
   .arguments('[demoSelector]')
   .command('init [path]', 'Init a GS Demo', { executableFile: path.join(__dirname, 'command/init.js') })
   .command('archive', 'Archive existing GS Demo', { executableFile: path.join(__dirname, 'command/archive.js')})

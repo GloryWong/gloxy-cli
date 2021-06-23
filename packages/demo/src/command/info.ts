@@ -3,7 +3,7 @@ import { initCLIOrWarning } from '../command-helper/init';
 import log from '@glorywong/log';
 import { getInfo } from '../core/infoGSDemo';
 import boxen from 'boxen';
-import { gsDemoVersion, gsDemoDescription} from '../command-helper/info';
+import { cliVersion } from '../command-helper/cliInfo';
 
 new Command()
   .action(function() {
@@ -12,14 +12,15 @@ new Command()
         return;
       }
 
-      const { root, name, description } = getInfo();
+      const { location, name, description, demoCount } = getInfo();
       const info = `
-        GSDemo CLI ${gsDemoVersion}
+        GSDemo CLI ${cliVersion}
 
-        Current GS Demo:
+        Present GS Demo:
           Name: ${name}
-          Location: ${root}
+          Location: ${location}
           Description: ${description}
+          Demo count: ${demoCount}
       `;
       console.log(boxen(info, { padding: 1, borderStyle: 'double' }));
     } catch (error) {
