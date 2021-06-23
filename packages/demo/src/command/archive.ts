@@ -5,6 +5,7 @@ import log from '@glorywong/log';
 import { prompt } from 'inquirer';
 import PATH from '../lib/path';
 import path from 'path';
+import conf from '../lib/conf';
 
 new Command()
   .action(async function () {
@@ -35,7 +36,19 @@ new Command()
         return;
       }
 
-      await archive();
+      const { archiveName }: { archiveName: string} = await prompt({
+        type: 'input',
+        name: 'archiveName',
+        message: `Input archive name for this GSDemo:`,
+        default: () => {
+          const root = String(conf.get('root'));
+          const { name } = path.parse(root);
+
+          return name;
+        }
+      });
+
+      await archive(archiveName);
       log.success(`GSDemo '${gsDemoName}' archived`);
     } catch (error) {
       log.error('Archive failed:', error);
