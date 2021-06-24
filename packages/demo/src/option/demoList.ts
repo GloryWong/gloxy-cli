@@ -6,11 +6,11 @@ import * as types from '../lib/types';
 import boxen from 'boxen';
 import columns from 'cli-columns';
 import chalk from 'chalk';
+import ora from 'ora';
 
 function __listDemos(list: DemoIndex): boolean {
   try {
     if (!list.length) {
-      console.log(chalk.gray('-------- none --------'));
       return false;
     }
 
@@ -71,21 +71,27 @@ async function __chooseDemo(demoIndex: types.DemoIndex): Promise<boolean> {
 }
 
 function listAllDemos() {
+  const spinner = ora(`Loading all demos`);
   try {
     const demoIndex = getDemoIndex();
+    spinner.succeed(`${chalk.bold(demoIndex.length)} demo(s) found`);
     __listDemos(demoIndex);
   } catch (error) {
-    console.error('list all demos failed:', error);
+    spinner.fail('Failed to list all demos');
+    console.error(error);
   }
 }
 
 function searchDemos(str: string): types.DemoIndex {
+  const spinner = ora(`Searching ${chalk.bold.yellow(str)}`).start();
   try {
     const demoIndex = searchDemoIndex(str);
+    spinner.succeed(`${chalk.bold(demoIndex.length)} demo(s) found matched ${chalk.bold.yellow(str)}`);
     __listDemos(demoIndex);
     return demoIndex;
   } catch (error) {
-    console.error('search demo failed:', error);
+    spinner.fail(`Failed to find demos matched ${chalk.bold.yellow(str)}`);
+    console.error(error);
     return [];
   }
 }

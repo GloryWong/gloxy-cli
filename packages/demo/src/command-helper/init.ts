@@ -27,7 +27,7 @@ function initCLIOrWarning(): boolean {
       initCLI();
       return true;
     } else {
-      log.warning('GS Demo does not exist, please init a GS Demo first.');
+      log.warning('GS Demo does not exist, please init first.');
       return false;
     }
   } catch (error) {

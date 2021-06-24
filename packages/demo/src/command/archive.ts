@@ -6,6 +6,7 @@ import { prompt } from 'inquirer';
 import PATH from '../lib/path';
 import path from 'path';
 import conf from '../lib/conf';
+import chalk from 'chalk';
 
 new Command()
   .action(async function () {
@@ -18,7 +19,7 @@ new Command()
       const { question }: { question: boolean } = await prompt({
         type: 'confirm',
         name: 'question',
-        message: `Are you sure to archive GSDemo '${gsDemoName}'?`
+        message: `Are you sure to archive GSDemo ${chalk.bold.yellow(gsDemoName)}?`
       });
 
       if (!question) {
@@ -49,7 +50,7 @@ new Command()
       });
 
       await archive(archiveName);
-      log.success(`GSDemo '${gsDemoName}' archived`);
+      console.log(`GSDemo ${chalk.bold.yellow(gsDemoName)} archived`);
     } catch (error) {
       log.error('Archive failed:', error);
     }
