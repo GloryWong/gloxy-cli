@@ -45,7 +45,6 @@ program
 
       if (create) {
         createDemo(create);
-        log.success('demo\'', create, '\'created');
         return;
       }
     } catch (error) {

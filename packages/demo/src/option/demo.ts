@@ -22,7 +22,7 @@ async function createDemo(name: string): Promise<void> {
       openDemo(id);
     }
   } catch (error) {
-    throw `createDemo failed: ${error}`;
+    log.error('Create demo failed:', error);
   }
 }
 
