@@ -20,7 +20,7 @@ program
   .option('-l, --list', 'list all demos')
   .option('--create <name>', 'create a demo')
   .option('--tag <tags...>', 'use tags')
-  .action(async function (demoSelector, options) {
+  .action(async function (demoSelector: string, options: any) {
     try {
       if (!demoSelector && _.isEmpty(options)) {
         program.help();
@@ -36,7 +36,7 @@ program
         return;
       }
 
-      const { list, create, tag, info } = options;
+      const { list, create } = options;
 
       if (list) {
         listAllDemos();
