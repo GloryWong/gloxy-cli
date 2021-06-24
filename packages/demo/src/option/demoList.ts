@@ -1,22 +1,32 @@
 import { getDemoIndex, searchDemoIndex } from '../core/demoIndex';
-import log from '@glorywong/log';
 import { prompt } from 'inquirer';
 import * as demo from './demo';
 import { DemoIndex } from '../lib/types';
 import * as types from '../lib/types';
+import boxen from 'boxen';
+import columns from 'cli-columns';
+import chalk from 'chalk';
 
 function __listDemos(list: DemoIndex): boolean {
   try {
     if (!list.length) {
-      log.info('-- none --');
+      console.log(chalk.gray('-------- none --------'));
       return false;
     }
 
-    log.info('--------------------------------');
-    list.forEach(({ code, name }: { code: number, name: string }) => {
-      log.info('[', 'success:', code, 'info:', ']', name);
+    const formatedList = list.map(({ code, name }: { code: number, name: string }) => {
+      return `[${chalk.bold.green(code)}] ${chalk.bold(name)}`;
     });
-    log.info('--------------------------------');
+
+    console.log(
+      boxen(
+        columns(formatedList),
+        {
+          padding: 1,
+          borderColor: 'gray'
+        }
+      )
+    );
 
     return true;
   } catch (error) {
@@ -65,7 +75,7 @@ function listAllDemos() {
     const demoIndex = getDemoIndex();
     __listDemos(demoIndex);
   } catch (error) {
-    log.error('list all demos failed:', error);
+    console.error('list all demos failed:', error);
   }
 }
 
@@ -75,7 +85,7 @@ function searchDemos(str: string): types.DemoIndex {
     __listDemos(demoIndex);
     return demoIndex;
   } catch (error) {
-    log.error('search demo failed:', error);
+    console.error('search demo failed:', error);
     return [];
   }
 }
@@ -91,7 +101,7 @@ async function searchAndChooseDemo(str: string) {
       searchAndChooseDemo(str);
     }
   } catch (error) {
-    log.error('search and choose demo failed:', error);
+    console.error('search and choose demo failed:', error);
   }
 }
 
