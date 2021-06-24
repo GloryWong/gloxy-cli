@@ -9,7 +9,7 @@ import { archive } from '../command-helper/archive';
 import Listr from 'listr';
 
 // demo name should be unique in a GS Demo
-function createDemo(name: string, tags?: string[]) {
+function createDemo(name: string, tags?: string[]): string {
   const id = uid();
   try {
     if (index.existsByName(name)) {
@@ -28,6 +28,8 @@ function createDemo(name: string, tags?: string[]) {
 
     // create demo dir
     mkdirp.sync(path.join(PATH.ROOT, name));
+
+    return id;
   } catch (error) {
     throw `createDemo failed: ${error}`;
   }

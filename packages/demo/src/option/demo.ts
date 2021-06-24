@@ -6,10 +6,21 @@ import execa from 'execa';
 import * as demo from '../core/demo';
 import * as index from '../storage/index';
 import { prompt } from 'inquirer';
+import chalk from 'chalk';
 
-function createDemo(name: string): void {
+async function createDemo(name: string): Promise<void> {
   try {
-    demo.createDemo(name);
+    const id = demo.createDemo(name);
+
+    const { question } : { question: boolean } = await prompt({
+      type: 'confirm',
+      name: 'question',
+      message: `Created successfully. Wanna open demo ${chalk.yellow(name)} in new window?`
+    });
+
+    if (question) {
+      openDemo(id);
+    }
   } catch (error) {
     throw `createDemo failed: ${error}`;
   }

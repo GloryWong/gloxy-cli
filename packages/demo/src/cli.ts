@@ -18,7 +18,7 @@ program
   .command('archive', 'Archive existing GS Demo', { executableFile: path.join(__dirname, 'command/archive.js')})
   .command('info', 'Output GS Demo information', { executableFile: path.join(__dirname, 'command/info.js')})
   .option('-l, --list', 'list all demos')
-  .option('--create <name>', 'create a demo')
+  .option('-c, --create <name>', 'create a demo')
   .option('--tag <tags...>', 'use tags')
   .action(async function (demoSelector: string, options: any) {
     try {

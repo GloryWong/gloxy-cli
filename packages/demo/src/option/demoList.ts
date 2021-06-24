@@ -82,12 +82,24 @@ function listAllDemos() {
   }
 }
 
-function searchDemos(str: string): types.DemoIndex {
+async function searchDemos(str: string): Promise<types.DemoIndex> {
   const spinner = ora(`Searching ${chalk.bold.yellow(str)}`).start();
   try {
     const demoIndex = searchDemoIndex(str);
     spinner.succeed(`${chalk.bold(demoIndex.length)} demo(s) found matched ${chalk.bold.yellow(str)}`);
-    __listDemos(demoIndex);
+    
+    if (demoIndex.length === 0) {
+      const { question } = await prompt({
+        type: 'confirm',
+        name: 'question',
+        message: `Wanna create demo ${chalk.yellow(str)}?`
+      });
+      if (question) {
+        demo.createDemo(str);
+      }
+    } else {
+      __listDemos(demoIndex);
+    }
     return demoIndex;
   } catch (error) {
     spinner.fail(`Failed to find demos matched ${chalk.bold.yellow(str)}`);
@@ -98,7 +110,7 @@ function searchDemos(str: string): types.DemoIndex {
 
 async function searchAndChooseDemo(str: string) {
   try {
-    const demoIndex = searchDemos(str);
+    const demoIndex = await searchDemos(str);
     if (!demoIndex.length) {
       return;
     }
