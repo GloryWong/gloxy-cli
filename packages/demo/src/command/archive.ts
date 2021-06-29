@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import { archive } from '../core/archiveGSDemo';
 import { initCLIOrWarning } from '../command-helper/init';
-import log from '@glorywong/log';
+import unilog from '@glorywong/unilog';
 import { prompt } from 'inquirer';
 import PATH from '../lib/path';
 import path from 'path';
@@ -33,7 +33,7 @@ new Command()
       });
 
       if (_gsDemoName.trim() !== gsDemoName) {
-        log.error('GSDemo name not matched. Archive failed.')
+        unilog.fail('GSDemo name not matched. Archive failed.')
         return;
       }
 
@@ -50,9 +50,9 @@ new Command()
       });
 
       await archive(archiveName);
-      console.log(`GSDemo ${chalk.bold.yellow(gsDemoName)} archived`);
+      unilog.succeed(`GSDemo ${chalk.bold.yellow(gsDemoName)} archived`);
     } catch (error) {
-      log.error('Archive failed:', error);
+      unilog.fail('Archive failed:', error);
     }
   })
   .parse();

@@ -36,7 +36,7 @@
     "test": "exit 0"
   },
   "dependencies": {
-    "@glorywong/log": "^1.0.4",
+    "@glorywong/unilog": "^1.1.1",
     "boxen": "^5.0.1",
     "cfonts": "^2.9.3",
     "cli-columns": "^3.1.2",

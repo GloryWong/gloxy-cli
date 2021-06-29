@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import { initCLIOrWarning } from '../command-helper/init';
-import log from '@glorywong/log';
+import unilog from '@glorywong/unilog';
 import { getInfo } from '../core/infoGSDemo';
 import boxen from 'boxen';
 import { cliVersion } from '../command-helper/cliInfo';
@@ -37,7 +37,7 @@ new Command()
       `;
       console.log(boxen(info, { padding: 1, borderStyle: 'double' }));
     } catch (error) {
-      log.error(`Output GSDemo info failed: ${error}`);
+      unilog.fail('Output GSDemo info failed', error);
     }
   })
   .parse();

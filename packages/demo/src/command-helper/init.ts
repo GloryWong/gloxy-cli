@@ -2,7 +2,7 @@ import PATH from '../lib/path';
 import conf from '../lib/conf';
 import storage from '../lib/storage';
 import { hasInited } from '../core/initGSDemo';
-import log from '@glorywong/log';
+import unilog from '@glorywong/unilog';
 
 export {
   initCLI,
@@ -27,7 +27,7 @@ function initCLIOrWarning(): boolean {
       initCLI();
       return true;
     } else {
-      log.warning('GS Demo does not exist, please init first.');
+      unilog.warn('GS Demo does not exist, please init first.');
       return false;
     }
   } catch (error) {

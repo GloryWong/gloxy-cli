@@ -1,5 +1,5 @@
 import copy from 'recursive-copy';
-import log from '@glorywong/log';
+import unilog from '@glorywong/unilog';
 import conf from '../lib/conf';
 import path from 'path';
 import PATH from '../lib/path';
@@ -18,9 +18,10 @@ function hasInited(): boolean {
  * @description: the **most important** first step for GS Demo.
  */
 async function init(gsDemoPath: string = 'gsdemo'): Promise<boolean> {
+  unilog('init GS Demo');
   try {
     if (hasInited()) {
-      log.warning('GS Demo has existed.');
+      unilog.warn('GS Demo has existed.');
       return false;
     }
 
@@ -49,11 +50,11 @@ async function init(gsDemoPath: string = 'gsdemo'): Promise<boolean> {
 
     await tasks.run();
 
-    log.success(`GS Demo was created successfully located in \n${root}.`);
+    unilog.succeed(`GS Demo was created successfully located in \n${root}.`);
 
     return true;
   } catch (error) {
-    log.error('Failed to init GS Demo:', error);
+    unilog.fail('Failed to init GS Demo:', error);
     return false;
   }
 }

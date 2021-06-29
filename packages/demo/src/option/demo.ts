@@ -1,4 +1,4 @@
-import log from '@glorywong/log';
+import unilog from '@glorywong/unilog';
 import PATH from '../lib/path';
 import { get } from '../storage/index';
 import path from 'path';
@@ -22,7 +22,7 @@ async function createDemo(name: string): Promise<void> {
       openDemo(id);
     }
   } catch (error) {
-    log.error('Create demo failed:', error);
+    unilog.fail('Create demo failed:', error);
   }
 }
 
@@ -30,7 +30,7 @@ async function archiveDemo(id: string): Promise<void> {
   try {
     const demoIndexItem = index.get(id);
     if (!demoIndexItem) {
-      log.error(`The demo does not exist`);
+      unilog.fail(`The demo does not exist`);
       return;
     }
 
@@ -44,7 +44,7 @@ async function archiveDemo(id: string): Promise<void> {
 
     if (question) {
       await demo.archiveDemo(id);
-      log.success(`demo '${demoName}' archived`);
+      unilog.succeed(`demo '${demoName}' archived`);
     }
   } catch (error) {
     throw `archiveDemo failed: ${error}`;
@@ -55,14 +55,14 @@ function openDemo(id: string, reuseWindow: boolean = false): void {
   try {
     const demoIndexItem = get(id);
     if (!demoIndexItem) {
-      log.error(`The demo does not exist`);
+      unilog.fail(`The demo does not exist`);
       return;
     }
 
     const { name } = demoIndexItem;
     const demoPath = path.join(PATH.ROOT, name);
     execa('code-insiders', [demoPath, reuseWindow ? '-r' : '']);
-    log.success('Demo', `'${name}'`, 'opened in', reuseWindow ? 'the last active VSCode window' : 'a new VSCode window');
+    unilog.succeed(`Demo '${name}' opened in ${reuseWindow ? 'the last active VSCode window' : 'a new VSCode window'}`);
   } catch (error) {
     throw `openDemo failed: ${error}`;
   }
