@@ -1,5 +1,5 @@
 import copy from 'recursive-copy';
-import unilog from '@glorywong/unilog';
+import { unilog } from '@glorywong/unilog';
 import conf from '../lib/conf';
 import path from 'path';
 import PATH from '../lib/path';
@@ -17,7 +17,7 @@ function hasInited(): boolean {
 /**
  * @description: the **most important** first step for GS Demo.
  */
-async function init(gsDemoPath: string = 'gsdemo'): Promise<boolean> {
+async function init(gsDemoPath: string = process.env.GS_DEMO_DEFAULT_NAME!): Promise<boolean> {
   unilog('init GS Demo');
   try {
     if (hasInited()) {

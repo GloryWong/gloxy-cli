@@ -1,8 +1,7 @@
 import Conf from 'conf';
 
-const CONFIG_NAME = 'gsdemo';
-const conf = new Conf({
-  configName: CONFIG_NAME
+const conf: any = new Conf({
+  configName: process.env.CONFIG_NAME
 });
 
 export default conf;

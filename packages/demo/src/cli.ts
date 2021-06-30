@@ -1,12 +1,12 @@
+import './env';
 import { Command } from 'commander';
-
 import _ from 'lodash';
 import { initCLIOrWarning } from './command-helper/init';
 import path from 'path';
 import { listAllDemos, searchAndChooseDemo } from './option/demoList';
 import { createDemo } from './option/demo';
 import { cliVersion, cliDescription, cliUsage } from './command-helper/cliInfo';
-import unilog from '@glorywong/unilog';
+import { unilog } from '@glorywong/unilog';
 
 const program = new Command();
 program

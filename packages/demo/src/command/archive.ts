@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import { archive } from '../core/archiveGSDemo';
 import { initCLIOrWarning } from '../command-helper/init';
-import unilog from '@glorywong/unilog';
+import { unilog } from '@glorywong/unilog';
 import { prompt } from 'inquirer';
 import PATH from '../lib/path';
 import path from 'path';

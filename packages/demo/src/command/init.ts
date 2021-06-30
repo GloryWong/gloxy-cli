@@ -3,7 +3,7 @@ import { init } from '../core/initGSDemo';
 
 new Command()
   .arguments('[path]')
-  .action(function(gsDemoPath) {
+  .action(function(gsDemoPath: string) {
       init(gsDemoPath);
       return;
   })

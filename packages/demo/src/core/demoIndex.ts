@@ -38,7 +38,7 @@ function searchDemoIndex(str: string): types.DemoIndex {
 
     const result = fuse.search(str);
 
-    return result.map(({ item }, i) => ({
+    return result.map(({ item }: { item: any }, i: number) => ({
       ...item,
       code: i // regenerate code for search result
     }));

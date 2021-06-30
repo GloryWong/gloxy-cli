@@ -1,4 +1,4 @@
-import unilog from '@glorywong/unilog';
+import { unilog } from '@glorywong/unilog';
 import PATH from '../lib/path';
 import { get } from '../storage/index';
 import path from 'path';

@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import { initCLIOrWarning } from '../command-helper/init';
-import unilog from '@glorywong/unilog';
+import { unilog } from '@glorywong/unilog';
 import { getInfo } from '../core/infoGSDemo';
 import boxen from 'boxen';
 import { cliVersion } from '../command-helper/cliInfo';

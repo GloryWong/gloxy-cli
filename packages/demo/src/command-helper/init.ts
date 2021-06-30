@@ -2,7 +2,7 @@ import PATH from '../lib/path';
 import conf from '../lib/conf';
 import storage from '../lib/storage';
 import { hasInited } from '../core/initGSDemo';
-import unilog from '@glorywong/unilog';
+import { unilog } from '@glorywong/unilog';
 
 export {
   initCLI,
