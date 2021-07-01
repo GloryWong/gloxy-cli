@@ -7,6 +7,7 @@ import { listAllDemos, searchAndChooseDemo } from './option/demoList';
 import { createDemo } from './option/demo';
 import { cliVersion, cliDescription, cliUsage } from './command-helper/cliInfo';
 import { unilog } from '@glorywong/unilog';
+import { lockGSDemo } from './option/gsDemo';
 
 const program = new Command();
 program
@@ -16,10 +17,12 @@ program
   .arguments('[demoSelector]')
   .command('init [path]', 'Init a GS Demo', { executableFile: path.join(__dirname, 'command/init.js') })
   .command('archive', 'Archive existing GS Demo', { executableFile: path.join(__dirname, 'command/archive.js')})
-  .command('info', 'Output GS Demo information', { executableFile: path.join(__dirname, 'command/info.js')})
+  .command('info', 'Display GS Demo information', { executableFile: path.join(__dirname, 'command/info.js')})
   .option('-l, --list', 'list all demos')
   .option('-c, --create <name>', 'create a demo')
   .option('--tag <tags...>', 'use tags')
+  .option('--lock', 'lock GS Demo')
+  .option('--no-lock', 'unlock GS Demo')
   .action(async function (demoSelector: string, options: any) {
     try {
       if (!demoSelector && _.isEmpty(options)) {
@@ -36,7 +39,7 @@ program
         return;
       }
 
-      const { list, create } = options;
+      const { list, create, lock } = options;
 
       if (list) {
         listAllDemos();
@@ -45,6 +48,11 @@ program
 
       if (create) {
         createDemo(create);
+        return;
+      }
+
+      if (lock !== undefined) {
+        lockGSDemo(lock);
         return;
       }
     } catch (error) {

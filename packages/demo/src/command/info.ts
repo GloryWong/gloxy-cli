@@ -14,7 +14,7 @@ new Command()
         return;
       }
 
-      const { location, name, description, demoCount } = getInfo();
+      const { location, name, description, demoCount, locked } = getInfo();
       const bigTitle = cfonts.render('GSDemo', {
         font: 'block',
         colors: ['system'],         // define all colors
@@ -34,6 +34,7 @@ new Command()
           Location: ${location}
           Description: ${description}
           Demo count: ${demoCount}
+          Locked: ${locked}
       `;
       console.log(boxen(info, { padding: 1, borderStyle: 'double' }));
     } catch (error) {

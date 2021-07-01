@@ -7,11 +7,18 @@ import PATH from '../lib/path';
 import path from 'path';
 import conf from '../lib/conf';
 import chalk from 'chalk';
+import { getInfo } from '../core/infoGSDemo';
 
 new Command()
   .action(async function () {
+    unilog('Archive GSDemo');
     try {
       if (!initCLIOrWarning()) {
+        return;
+      }
+
+      if (getInfo().locked) {
+        unilog.warn(`GSDemo is ${chalk.yellow.bold('locked')} and cannot be archived.`);
         return;
       }
 

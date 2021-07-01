@@ -2,8 +2,13 @@ import conf from '../lib/conf';
 import { getDemoCount } from './demoIndex';
 
 export {
-  getInfo
+  getInfo,
+  setInfo
 };
+
+type SettingProp = 
+  'description' |
+  'locked';
 
 function getInfo() {
   const configuration = conf.store;
@@ -11,6 +16,11 @@ function getInfo() {
     name: configuration.name,
     location: configuration.root,
     description: configuration.description,
-    demoCount: getDemoCount()
+    demoCount: getDemoCount(),
+    locked: configuration.locked || false
   };
+}
+
+function setInfo(prop: SettingProp, value: any) {
+  conf.set(prop, value);
 }
