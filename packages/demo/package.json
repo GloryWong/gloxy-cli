@@ -11,7 +11,8 @@
   "license": "ISC",
   "main": "lib/index.js",
   "bin": {
-    "gs-demo": "bin/demo.js"
+    "gsdemo": "bin/demo.js",
+    "gsdemo-test": "bin/demo-test.js"
   },
   "directories": {
     "lib": "lib",
