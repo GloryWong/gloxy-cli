@@ -1,12 +1,11 @@
 {
-  "name": "@gs/demo",
-  "version": "0.2.4",
-  "description": "Instant and quick demo",
+  "name": "@glorywong/demo",
+  "version": "0.1.0",
+  "description": "Create and manage local demos in one place instantly and smoothly.",
   "keywords": [
     "demo",
     "play",
     "instant",
-    "quick",
     "playground"
   ],
   "author": "Glory Wong Zhaohui <glorywong1001@gmail.com>",
@@ -57,7 +56,7 @@
     "mkdirp": "^0.5.5",
     "node-localstorage": "^2.2.1",
     "ora": "^5.4.0",
-    "recursive-copy": "^2.0.11",
+    "recursive-copy": "^2.0.13",
     "uid": "^2.0.0"
   },
   "bugs": {
