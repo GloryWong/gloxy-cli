@@ -1,11 +1,10 @@
-import * as types from '../lib/types';
 import * as index from '../storage/index';
 import Fuse from 'fuse.js';
 
-function getDemoIndex(): types.DemoIndex {
+function getDemoIndex(): DemoIndex {
   try {
     const indexAll = index.getAll();
-    const demoIndex: types.DemoIndex = indexAll.map(({ name, id }, i) => (
+    const demoIndex: DemoIndex = indexAll.map(({ name, id }, i) => (
       {
         id,
         name,
@@ -28,7 +27,7 @@ function getDemoCount(): number {
   }
 }
 
-function searchDemoIndex(str: string): types.DemoIndex {
+function searchDemoIndex(str: string): DemoIndex {
   try {
     const demoIndex = getDemoIndex();
     const fuse = new Fuse(demoIndex, {

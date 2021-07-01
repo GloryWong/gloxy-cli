@@ -4,10 +4,13 @@
   "description": "Instant and quick demo",
   "keywords": [
     "demo",
+    "play",
+    "instant",
+    "quick",
     "playground"
   ],
   "author": "Glory Wong Zhaohui <glorywong1001@gmail.com>",
-  "homepage": "https://github.com/GloryWong/gs-cli#readme",
+  "homepage": "https://github.com/GloryWong/gs-cli/tree/master/packages/demo#readme",
   "license": "ISC",
   "main": "lib/index.js",
   "bin": {
@@ -30,11 +33,12 @@
     "url": "git+https://github.com/GloryWong/gs-cli.git"
   },
   "scripts": {
-    "dev": "npm run clean && npm run copy && tsc --watch",
+    "dev": "npm run clean && npm run copy && tsc --sourceMap true --watch",
     "build": "npm run clean && tsc && npm run copy",
     "copy": "recursive-copy --dot true --overwrite true src/template ./lib/template",
     "clean": "rimraf lib/",
-    "test": "exit 0"
+    "test": "exit 0",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@glorywong/unilog": "^1.1.5",

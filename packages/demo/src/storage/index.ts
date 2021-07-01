@@ -6,13 +6,6 @@ import storage from '../lib/storage';
 const INDEX_NAME: string = process.env.GS_DEMO_INDEX_NAME!;
 const INDEX_DEFAULT_VALUE: Index = [];
 
-// types
-type Index = Array<IndexItem>;
-type IndexItem = {
-  'id': string,
-  [key: string]: any
-};
-
 export {
   add,
   get,

@@ -6,10 +6,6 @@ export {
   setInfo
 };
 
-type SettingProp = 
-  'description' |
-  'locked';
-
 function getInfo() {
   const configuration = conf.store;
   return {

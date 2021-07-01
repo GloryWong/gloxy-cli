@@ -1,8 +1,6 @@
 import { getDemoIndex, searchDemoIndex } from '../core/demoIndex';
 import { prompt } from 'inquirer';
 import * as demo from './demo';
-import { DemoIndex } from '../lib/types';
-import * as types from '../lib/types';
 import boxen from 'boxen';
 import columns from 'cli-columns';
 import chalk from 'chalk';
@@ -34,7 +32,7 @@ function __listDemos(list: DemoIndex): boolean {
   }
 }
 
-async function __chooseDemo(demoIndex: types.DemoIndex): Promise<boolean> {
+async function __chooseDemo(demoIndex: DemoIndex): Promise<boolean> {
   try {
     const { input } = await prompt({
       type: 'input',
@@ -82,7 +80,7 @@ function listAllDemos() {
   }
 }
 
-async function searchDemos(str: string): Promise<types.DemoIndex> {
+async function searchDemos(str: string): Promise<DemoIndex> {
   const spinner = ora(`Searching ${chalk.bold.yellow(str)}`).start();
   try {
     const demoIndex = searchDemoIndex(str);

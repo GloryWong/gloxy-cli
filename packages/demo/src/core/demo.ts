@@ -1,4 +1,3 @@
-import * as types from '../lib/types';
 import storage from '../lib/storage';
 import * as index from '../storage/index';
 import { uid } from 'uid/secure';
@@ -16,7 +15,7 @@ function createDemo(name: string, tags?: string[]): string {
       throw `same name demo '${name}' already exists`;
     }
 
-    const demo: types.Demo = {
+    const demo: Demo = {
       id,
       name
     };
@@ -37,7 +36,7 @@ function createDemo(name: string, tags?: string[]): string {
 
 function archiveDemo(id: string): Promise<any> {
   try {
-    const demo: types.Demo = storage.get(id, '');
+    const demo: Demo = storage.get(id, '');
     const { name: demoName } = demo;
 
     const tasks = new Listr([
