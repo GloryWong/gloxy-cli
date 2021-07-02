@@ -10,7 +10,8 @@
   "license": "ISC",
   "main": "lib/registry.js",
   "bin": {
-    "gs-registry": "bin/registry"
+    "gregistry": "bin/registry",
+    "greg": "bin/registry"
   },
   "directories": {
     "lib": "lib",

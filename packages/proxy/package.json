@@ -10,7 +10,7 @@
   "license": "ISC",
   "main": "lib/proxy.js",
   "bin": {
-    "gs-proxy": "bin/proxy"
+    "gproxy": "bin/proxy"
   },
   "directories": {
     "lib": "lib",
