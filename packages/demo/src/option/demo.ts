@@ -61,7 +61,7 @@ function openDemo(id: string, reuseWindow: boolean = false): void {
 
     const { name } = demoIndexItem;
     const demoPath = path.join(PATH.ROOT, name);
-    execa('code-insiders', [demoPath, reuseWindow ? '-r' : '']);
+    execa('code', [demoPath, reuseWindow ? '-r' : '']);
     unilog.succeed(`Demo '${name}' opened in ${reuseWindow ? 'the last active VSCode window' : 'a new VSCode window'}`);
   } catch (error) {
     throw `openDemo failed: ${error}`;

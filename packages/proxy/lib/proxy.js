@@ -1,7 +1,7 @@
 'use strict';
 
 const execa = require('execa');
-const log = require('@glorywong/log');
+const { unilog } = require('@gloxy/unilog');
 // const ConfigStore = require('configstore');
 // const fs = require('fs');
 
@@ -80,26 +80,26 @@ function _isTruth(val) {
 
 function get(app) {
     const val = _get(app);
-    log.success(app, val || 'has no proxy set.');
+    unilog.succeed(app, val || 'has no proxy set.');
     return val;
 }
 
 function set(app) {
     _set(app);
-    log.success(`set ${app} proxy successfully`);
+    unilog.succeed(`set ${app} proxy successfully`);
 }
 
 function remove(app) {
     remove(app);
-    log.success(`remove ${app} proxy successfully`);
+    unilog.succeed(`remove ${app} proxy successfully`);
 }
 
 function toggle(app) {
     if (_get(app)) {
         _remove(app);
-        log.success(`${app} proxy off`);
+        unilog.succeed(`${app} proxy off`);
     } else {
         _set(app);
-        log.success(`${app} proxy on`);
+        unilog.succeed(`${app} proxy on`);
     }
 }

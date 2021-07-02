@@ -1,7 +1,7 @@
 'use strict';
 
 const execa = require('execa');
-const log = require('@glorywong/log');
+const { unilog } = require('@gloxy/unilog');
 
 module.exports = {
     toggle,
@@ -51,7 +51,7 @@ function _isTruth(val) {
 
 function get(app) {
     const val = _get(app);
-    log.success(app, val || 'has no registry set.');
+    unilog.succeed(app, val || 'has no registry set.');
     return val;
 }
 
@@ -70,5 +70,5 @@ function toggle(app) {
     }
     _set(app, newRegistry);
 
-    log.success(app, 'registry was toggled from', currentRegistry, 'to', newRegistry);
+    unilog.succeed(app, 'registry was toggled from', currentRegistry, 'to', newRegistry);
 }

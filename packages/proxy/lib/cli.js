@@ -2,7 +2,7 @@
 
 const { Command } = require('commander');
 const proxy = require('./proxy');
-const log = require('@glorywong/log');
+const { unilog } = require('@gloxy/unilog');
 
 const program = new Command();
 const VERSION = '0.0.1';
@@ -27,7 +27,7 @@ program
         return;
       }
     } catch (error) {
-      log.error(error);
+      unilog.fail(error);
     }
   })
   .parse();
