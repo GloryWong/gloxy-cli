@@ -1,5 +1,5 @@
 {
-  "name": "@gs/proxy",
+  "name": "@gloxy/proxy-cli",
   "version": "0.0.4",
   "description": "Manage local proxy",
   "keywords": [

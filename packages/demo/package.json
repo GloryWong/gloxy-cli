@@ -1,5 +1,5 @@
 {
-  "name": "@glorywong/demo",
+  "name": "@gloxy/demo-cli",
   "version": "0.1.0",
   "description": "Create and manage local demos in one place instantly and smoothly.",
   "keywords": [
@@ -9,12 +9,12 @@
     "playground"
   ],
   "author": "Glory Wong Zhaohui <glorywong1001@gmail.com>",
-  "homepage": "https://github.com/GloryWong/gs-cli/tree/master/packages/demo#readme",
+  "homepage": "https://github.com/GloryWong/gloxy-cli/tree/master/packages/demo#readme",
   "license": "ISC",
   "main": "lib/index.js",
   "bin": {
-    "gsdemo": "bin/demo.js",
-    "gsdemo-test": "bin/demo-test.js"
+    "gdemo": "bin/demo.js",
+    "gdemo-test": "bin/demo-test.js"
   },
   "directories": {
     "lib": "lib",
@@ -29,7 +29,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GloryWong/gs-cli.git"
+    "url": "git+https://github.com/GloryWong/gloxy-cli.git"
   },
   "scripts": {
     "dev": "npm run clean && npm run copy && tsc --sourceMap true --watch",
@@ -40,7 +40,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@glorywong/unilog": "^1.1.5",
+    "@gloxy/unilog": "^1.0.0",
     "boxen": "^5.0.1",
     "cfonts": "^2.9.3",
     "cli-columns": "^3.1.2",
@@ -60,7 +60,7 @@
     "uid": "^2.0.0"
   },
   "bugs": {
-    "url": "https://github.com/GloryWong/gs-cli/issues"
+    "url": "https://github.com/GloryWong/gloxy-cli/issues"
   },
   "devDependencies": {
     "@tsconfig/node12": "^1.0.7"

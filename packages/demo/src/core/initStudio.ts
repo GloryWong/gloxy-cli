@@ -1,5 +1,5 @@
 import copy from 'recursive-copy';
-import { unilog } from '@glorywong/unilog';
+import { unilog } from '@gloxy/unilog';
 import conf from '../lib/conf';
 import path from 'path';
 import PATH from '../lib/path';
@@ -15,22 +15,22 @@ function hasInited(): boolean {
 }
 
 /**
- * @description: the **most important** first step for GS Demo.
+ * @description: the **most important** first step for Studio.
  */
-async function init(gsDemoPath: string = process.env.GS_DEMO_DEFAULT_NAME!): Promise<boolean> {
-  unilog('init GS Demo');
+async function init(studioPath: string = process.env.STUDIO_DEFAULT_NAME!): Promise<boolean> {
+  unilog('init Studio');
   try {
     if (hasInited()) {
-      unilog.warn('GS Demo has existed.');
+      unilog.warn('Studio has existed.');
       return false;
     }
 
-    const root = path.resolve(gsDemoPath);
-    const { name: gsDemoName } = path.parse(root);
+    const root = path.resolve(studioPath);
+    const { name: studioName } = path.parse(root);
 
     const tasks = new Listr([
       {
-        title: 'Init GS Demo dir',
+        title: 'Init Studio dir',
         task: () => {
           return copy(path.resolve(__dirname, '..', 'template'), root, {
             dot: true
@@ -41,8 +41,8 @@ async function init(gsDemoPath: string = process.env.GS_DEMO_DEFAULT_NAME!): Pro
         title: 'Create configuration',
         task: () => {
           conf.set('root', root);
-          conf.set('name', gsDemoName);
-          conf.set('description', 'My GS Demo');
+          conf.set('name', studioName);
+          conf.set('description', 'My Studio');
           PATH.ROOT = root;
         }
       }
@@ -50,11 +50,11 @@ async function init(gsDemoPath: string = process.env.GS_DEMO_DEFAULT_NAME!): Pro
 
     await tasks.run();
 
-    unilog.succeed(`GS Demo was created successfully located in \n${root}.`);
+    unilog.succeed(`Studio was created successfully located in \n${root}.`);
 
     return true;
   } catch (error) {
-    unilog.fail('Failed to init GS Demo:', error);
+    unilog.fail('Failed to init Studio:', error);
     return false;
   }
 }

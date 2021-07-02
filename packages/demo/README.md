@@ -1,4 +1,4 @@
-# `@glorywong/demo`
+# `@gloxy/demo-cli`
 
 **Demo CLI**
 
@@ -7,19 +7,19 @@ Create and manage local demos in one place instantly and smoothly.
 # Install
 
 ```sh
-npm -g i @glorywong/demo
+npm -g i @gloxy/demo-cli
 ```
 or
 ```sh
-yarn global add @glorywong/demo
+yarn global add @gloxy/demo-cli
 ```
 
 # Usage
 
 ```sh
-gsdemo --help
+gdemo --help
 
-Usage: gsdemo [optons] [command] [demoSelector]
+Usage: gdemo [optons] [command] [demoSelector]
   demoSelector: a `demo code` from the displayed demo list, opening a demo
                 in a new editor window by default.
                 Options:
@@ -33,12 +33,12 @@ Options:
   -l, --list           list all demos
   -c, --create <name>  create a demo
   --tag <tags...>      use tags
-  --lock               lock GS Demo
-  --no-lock            unlock GS Demo
+  --lock               lock Studio
+  --no-lock            unlock Studio
   -h, --help           display help for command
 
 Commands:
-  init [path]          Init a GS Demo
-  archive              Archive existing GS Demo
-  info                 Display GS Demo information
+  init [path]          Init a Studio
+  archive              Archive existing Studio
+  info                 Display Studio information
 ```

@@ -7,7 +7,7 @@ import path from 'path';
 import { archive } from '../command-helper/archive';
 import Listr from 'listr';
 
-// demo name should be unique in a GS Demo
+// demo name should be unique in a Studio
 function createDemo(name: string, tags?: string[]): string {
   const id = uid();
   try {
@@ -55,8 +55,8 @@ function archiveDemo(id: string): Promise<any> {
       {
         title: `Move demo folder '${demoName}' to archive`,
         task: () => {
-          const { name: gsDemoName } = path.parse(PATH.ROOT);
-          return archive(path.join(PATH.ROOT, demoName), `${gsDemoName}.${demoName}.${id}`);
+          const { name: studioName } = path.parse(PATH.ROOT);
+          return archive(path.join(PATH.ROOT, demoName), `${studioName}.${demoName}.${id}`);
         }
       }
     ]);

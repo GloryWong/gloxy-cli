@@ -1,10 +1,10 @@
 import { Command } from 'commander';
-import { init } from '../core/initGSDemo';
+import { init } from '../core/initStudio';
 
 new Command()
   .arguments('[path]')
-  .action(function(gsDemoPath: string) {
-      init(gsDemoPath);
+  .action(function(studioPath: string) {
+      init(studioPath);
       return;
   })
   .parse();

@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import { initCLIOrWarning } from '../command-helper/init';
-import { unilog } from '@glorywong/unilog';
-import { getInfo } from '../core/infoGSDemo';
+import { unilog } from '@gloxy/unilog';
+import { getInfo } from '../core/infoStudio';
 import boxen from 'boxen';
 import { cliVersion } from '../command-helper/cliInfo';
 import chalk from 'chalk';
@@ -15,7 +15,7 @@ new Command()
       }
 
       const { location, name, description, demoCount, locked } = getInfo();
-      const bigTitle = cfonts.render('GSDemo', {
+      const bigTitle = cfonts.render('Studio', {
         font: 'block',
         colors: ['system'],         // define all colors
         background: 'transparent',  // define the background color, you can also use `backgroundColor` here as key
@@ -27,9 +27,9 @@ new Command()
       });
 
       const info = `${bigTitle.string}
-        ${chalk.bold.green('GSDemo CLI')} ${chalk.bold.yellow(cliVersion)}
+        ${chalk.bold.green('Studio CLI')} ${chalk.bold.yellow(cliVersion)}
 
-        Present GS Demo:
+        Present Studio:
           Name: ${chalk.bold(name)}
           Location: ${location}
           Description: ${description}
@@ -38,7 +38,7 @@ new Command()
       `;
       console.log(boxen(info, { padding: 1, borderStyle: 'double' }));
     } catch (error) {
-      unilog.fail('Output GSDemo info failed', error);
+      unilog.fail('Output Studio info failed', error);
     }
   })
   .parse();

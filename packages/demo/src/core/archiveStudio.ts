@@ -1,6 +1,6 @@
 import PATH from '../lib/path';
 import conf from '../lib/conf';
-import { archive as archiveGSDemo } from '../command-helper/archive';
+import { archive as archiveStudio } from '../command-helper/archive';
 import { DateTime } from 'luxon';
 import Listr from 'listr';
 
@@ -10,9 +10,9 @@ async function archive(archiveName?: string): Promise<any> {
 
     const tasks = new Listr([
       {
-        title: `Move GS Demo folder '${archiveName}' to archive`,
+        title: `Move Studio folder '${archiveName}' to archive`,
         task: () => {
-          return archiveGSDemo(root, `${archiveName}.${DateTime.now()}`);
+          return archiveStudio(root, `${archiveName}.${DateTime.now()}`);
         }
       },
       {

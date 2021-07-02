@@ -1,8 +1,8 @@
 import PATH from '../lib/path';
 import conf from '../lib/conf';
 import storage from '../lib/storage';
-import { hasInited } from '../core/initGSDemo';
-import { unilog } from '@glorywong/unilog';
+import { hasInited } from '../core/initStudio';
+import { unilog } from '@gloxy/unilog';
 
 export {
   initCLI,
@@ -27,7 +27,7 @@ function initCLIOrWarning(): boolean {
       initCLI();
       return true;
     } else {
-      unilog.warn('GS Demo does not exist, please init first.');
+      unilog.warn('Studio does not exist, please init first.');
       return false;
     }
   } catch (error) {

@@ -1,53 +1,53 @@
 import { Command } from 'commander';
-import { archive } from '../core/archiveGSDemo';
+import { archive } from '../core/archiveStudio';
 import { initCLIOrWarning } from '../command-helper/init';
-import { unilog } from '@glorywong/unilog';
+import { unilog } from '@gloxy/unilog';
 import { prompt } from 'inquirer';
 import PATH from '../lib/path';
 import path from 'path';
 import conf from '../lib/conf';
 import chalk from 'chalk';
-import { getInfo } from '../core/infoGSDemo';
+import { getInfo } from '../core/infoStudio';
 
 new Command()
   .action(async function () {
-    unilog('Archive GSDemo');
+    unilog('Archive Studio');
     try {
       if (!initCLIOrWarning()) {
         return;
       }
 
       if (getInfo().locked) {
-        unilog.warn(`GSDemo is ${chalk.yellow.bold('locked')} and cannot be archived.`);
+        unilog.warn(`Studio is ${chalk.yellow.bold('locked')} and cannot be archived.`);
         return;
       }
 
-      const { name: gsDemoName } = path.parse(PATH.ROOT);
+      const { name: studioName } = path.parse(PATH.ROOT);
       const { question }: { question: boolean } = await prompt({
         type: 'confirm',
         name: 'question',
-        message: `Are you sure to archive GSDemo ${chalk.bold.yellow(gsDemoName)}?`
+        message: `Are you sure to archive Studio ${chalk.bold.yellow(studioName)}?`
       });
 
       if (!question) {
         return;
       }
 
-      const { gsDemoName: _gsDemoName }: { gsDemoName: string } = await prompt({
+      const { studioName: _studioName }: { studioName: string } = await prompt({
         type: 'input',
-        name: 'gsDemoName',
-        message: `Please confirm the GSDemo name:`
+        name: 'studioName',
+        message: `Please confirm the Studio name:`
       });
 
-      if (_gsDemoName.trim() !== gsDemoName) {
-        unilog.fail('GSDemo name not matched. Archive failed.')
+      if (_studioName.trim() !== studioName) {
+        unilog.fail('Studio name not matched. Archive failed.')
         return;
       }
 
       const { archiveName }: { archiveName: string} = await prompt({
         type: 'input',
         name: 'archiveName',
-        message: `Give an archive name for this GSDemo:`,
+        message: `Give an archive name for this Studio:`,
         default: () => {
           const root = String(conf.get('root'));
           const { name } = path.parse(root);
@@ -57,7 +57,7 @@ new Command()
       });
 
       await archive(archiveName);
-      unilog.succeed(`GSDemo ${chalk.bold.yellow(gsDemoName)} archived`);
+      unilog.succeed(`Studio ${chalk.bold.yellow(studioName)} archived`);
     } catch (error) {
       unilog.fail('Archive failed:', error);
     }

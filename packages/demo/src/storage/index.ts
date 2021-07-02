@@ -3,7 +3,7 @@ import storage from '../lib/storage';
 // Note: the array index of item in INDEX storage as Code
 
 // constants
-const INDEX_NAME: string = process.env.GS_DEMO_INDEX_NAME!;
+const INDEX_NAME: string = process.env.STUDIO_INDEX_NAME!;
 const INDEX_DEFAULT_VALUE: Index = [];
 
 export {
