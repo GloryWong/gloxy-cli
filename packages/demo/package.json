@@ -1,6 +1,6 @@
 {
   "name": "@gloxy/demo-cli",
-  "version": "0.1.0",
+  "version": "0.1.7",
   "description": "Create and manage local demos in one place instantly and smoothly.",
   "keywords": [
     "demo",
@@ -21,7 +21,8 @@
   },
   "files": [
     "bin",
-    "lib"
+    "lib",
+    ".env"
   ],
   "publishConfig": {
     "access": "public"
