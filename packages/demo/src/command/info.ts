@@ -15,7 +15,7 @@ new Command()
       }
 
       const { location, name, description, demoCount, locked } = getInfo();
-      const bigTitle = cfonts.render('Studio', {
+      const bigTitle = cfonts.render('GDemo CLI', {
         font: 'block',
         colors: ['system'],         // define all colors
         background: 'transparent',  // define the background color, you can also use `backgroundColor` here as key
@@ -27,7 +27,8 @@ new Command()
       });
 
       const info = `${bigTitle.string}
-        ${chalk.bold.green('Studio CLI')} ${chalk.bold.yellow(cliVersion)}
+        ${chalk.bold.green('GDemo CLI')} ${chalk.bold.yellow(cliVersion)}${process.env.NODE_ENV === 'test'? ' ' + chalk.bgMagenta(' test ') : ''}
+        ${chalk.white('Author: Wang Zhaohui (https://zhaozhao.today)')}
 
         Present Studio:
           Name: ${chalk.bold(name)}
