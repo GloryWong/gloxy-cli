@@ -13,8 +13,7 @@
   "license": "ISC",
   "main": "lib/index.js",
   "bin": {
-    "gdemo": "bin/demo.js",
-    "gdemo-test": "bin/demo-test.js"
+    "gdemo": "bin/demo.js"
   },
   "directories": {
     "lib": "lib",
@@ -37,6 +36,8 @@
     "copy": "recursive-copy --dot true --overwrite true src/template ./lib/template",
     "clean": "rimraf lib/",
     "test": "exit 0",
+    "link-test": "node ./scripts/link-test.js",
+    "unlink-test": "node ./scripts/link-test.js --not",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
@@ -63,6 +64,8 @@
     "url": "https://github.com/GloryWong/gloxy-cli/issues"
   },
   "devDependencies": {
-    "@tsconfig/node12": "^1.0.7"
+    "@tsconfig/node12": "^1.0.7",
+    "global-dirs": "^3.0.0",
+    "symlink-dir": "^5.0.1"
   }
 }
