@@ -43,6 +43,7 @@ async function init(studioPath: string = process.env.STUDIO_DEFAULT_NAME!): Prom
           conf.set('root', root);
           conf.set('name', studioName);
           conf.set('description', 'My Studio');
+          conf.set('locked', true);
           PATH.ROOT = root;
         }
       }
